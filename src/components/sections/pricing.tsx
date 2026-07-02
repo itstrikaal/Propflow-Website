@@ -56,7 +56,7 @@ export function PricingSection() {
         >
           Annual
           <span className="rounded-full bg-success-bg px-2 py-0.5 text-[10px] font-semibold text-success">
-            Save 20%
+            Save 17%
           </span>
         </span>
       </div>

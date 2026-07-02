@@ -19,7 +19,7 @@ export function Navbar() {
   useEffect(() => {
     setMounted(true);
     const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -36,9 +36,9 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        "fixed inset-x-0 top-0 z-50 transition-all duration-500",
         scrolled
-          ? "glass border-b border-border shadow-sm"
+          ? "border-b border-border/40 bg-bg/80 shadow-sm shadow-black/5 backdrop-blur-xl"
           : "bg-transparent"
       )}
     >
@@ -91,16 +91,12 @@ export function Navbar() {
               )}
             </button>
           )}
-          <Link href="/contact">
-            <Button variant="ghost" size="sm">
-              Sign In
-            </Button>
-          </Link>
-          <Link href="/pricing">
-            <Button variant="gradient" size="sm">
-              Start Free Trial
-            </Button>
-          </Link>
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="/contact">Sign In</Link>
+          </Button>
+          <Button variant="gradient" size="sm" asChild>
+            <Link href="/pricing">Start Free Trial</Link>
+          </Button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -132,7 +128,7 @@ export function Navbar() {
       {/* Mobile Navigation Overlay */}
       {isOpen && (
         <div className="fixed inset-0 top-16 z-40 md:hidden" role="dialog" aria-modal="true">
-          <div className="glass flex h-[calc(100dvh-4rem)] flex-col border-t border-border px-4 pb-8 pt-6">
+          <div className="flex h-[calc(100dvh-4rem)] flex-col border-t border-border bg-bg/98 backdrop-blur-xl px-4 pb-8 pt-6">
             <nav className="flex flex-col gap-1" aria-label="Mobile navigation">
               {navigation.map((link) => (
                 <Link

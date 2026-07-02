@@ -54,8 +54,8 @@ export const footerLinks = {
 };
 
 export const stats: Stat[] = [
-  { value: 12847, suffix: "+", label: "Deals closed this month" },
-  { value: 5000, suffix: "+", label: "Active brokers" },
+  { value: 1847, suffix: "+", label: "Deals closed this month" },
+  { value: 1800, suffix: "+", label: "Active brokers" },
   { value: 99.9, suffix: "%", label: "Platform uptime" },
   { value: 15, suffix: "hrs/wk", label: "Time saved per broker" },
 ];

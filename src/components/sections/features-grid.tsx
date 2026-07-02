@@ -31,7 +31,7 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
@@ -44,7 +44,7 @@ export function FeaturesGridSection() {
     <SectionWrapper
       id="features"
       variant="dark"
-      label="Features"
+      label="Platform"
       title="Everything you need to run your brokerage."
       description="Six powerful tools consolidated into one intelligent platform. No more app-switching."
     >
@@ -61,18 +61,21 @@ export function FeaturesGridSection() {
             <motion.div
               key={feature.id}
               variants={itemVariants}
-              className="group relative overflow-hidden rounded-2xl border border-border bg-surface p-6 transition-all duration-300 hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5"
+              className="group relative overflow-hidden rounded-2xl border border-border/60 bg-surface p-6 transition-all duration-500 hover:border-brand-500/40 hover:shadow-xl hover:shadow-brand-500/10 hover:-translate-y-0.5"
             >
+              {/* Subtle hover gradient overlay */}
+              <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-gradient-to-br from-brand-500/[0.03] to-transparent" />
+
               <div
                 className={cn(
-                  "mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br shadow-sm transition-transform group-hover:scale-110",
+                  "relative mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:shadow-md",
                   feature.gradient || "from-brand-500 to-brand-600"
                 )}
               >
                 <Icon className="h-5 w-5 text-white" />
               </div>
-              <h3 className="text-base font-semibold text-fg">{feature.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-fg-tertiary">
+              <h3 className="relative text-base font-semibold text-fg">{feature.title}</h3>
+              <p className="relative mt-2 text-sm leading-relaxed text-fg-tertiary">
                 {feature.description}
               </p>
             </motion.div>

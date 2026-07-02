@@ -4,7 +4,6 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { SectionWrapper } from "@/components/shared/section-wrapper";
 import { howItWorks } from "@/lib/constants";
-import { cn } from "@/lib/utils";
 
 const timelineVariants = {
   hidden: { opacity: 0 },

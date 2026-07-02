@@ -134,7 +134,7 @@
 
   /* Typography */
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Inter Display", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
   /* Shadows (switch with mode) */
@@ -279,6 +279,68 @@ body {
   }
 }
 
+/* ─── Text Reveal Animation ─── */
+
+.line-mask {
+  overflow: hidden;
+  display: block;
+}
+
+.line-reveal {
+  display: block;
+  transform: translateY(100%);
+  animation: heroRevealUp 1s cubic-bezier(0.6, 0.04, 0.015, 1) forwards;
+}
+
+.line-mask:nth-child(2) .line-reveal { animation-delay: 0.22s; }
+.line-mask:nth-child(3) .line-reveal { animation-delay: 0.44s; }
+
+@keyframes heroRevealUp {
+  0% { transform: translateY(100%); }
+  100% { transform: translateY(0); }
+}
+
+/* ─── Resolution Bars ─── */
+
+.bar-track {
+  width: 100%; height: 14px;
+  border-radius: 9999px;
+  background: rgba(255,255,255,0.06);
+  overflow: hidden;
+}
+
+.dark .bar-track { background: rgba(255,255,255,0.06); }
+
+.bar-fill {
+  height: 100%; border-radius: 9999px;
+  background: linear-gradient(90deg, #7c3aed, #a78bfa);
+  width: 0;
+  transition: width 1.2s cubic-bezier(0.22,1,0.36,1);
+}
+
+.bar-fill.fill-secondary { background: rgba(255,255,255,0.15); }
+.bar-fill.fill-tertiary { background: rgba(255,255,255,0.08); }
+
+/* ─── Hero Canvas Background ─── */
+
+.hero-canvas {
+  position: fixed; inset: 0; z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 50%, #1a1a2e 0%, #0a0a0a 70%);
+}
+
+.dark .hero-canvas { background: radial-gradient(ellipse at 50% 50%, #1a1a2e 0%, #0a0a0a 70%); }
+
+/* ─── Large CTA Arrow ─── */
+
+.cta-arrow {
+  transition: transform 0.3s ease;
+}
+
+.cta-group:hover .cta-arrow {
+  transform: translateX(10px);
+}
+
 /* ─── Utility Classes ─── */
 
 .gradient-text {
@@ -323,4 +385,24 @@ body {
   background-image:
     linear-gradient(rgba(37, 99, 235, 0.06) 1px, transparent 1px),
     linear-gradient(90deg, rgba(37, 99, 235, 0.06) 1px, transparent 1px);
+}
+
+/* ─── Marquee Animations ─── */
+
+@keyframes marquee-right {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-left {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+@utility animate-marquee-right {
+  animation: marquee-right var(--animate-duration, 40s) linear infinite;
+}
+
+@utility animate-marquee-left {
+  animation: marquee-left var(--animate-duration, 40s) linear infinite;
 }

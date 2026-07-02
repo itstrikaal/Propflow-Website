@@ -1,46 +1,82 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-
 const logos = [
-  { name: "Mumbai Realtors", gradient: "from-brand-500 to-brand-600" },
-  { name: "Delhi Property Hub", gradient: "from-brand-alt-500 to-brand-alt-600" },
-  { name: "Bangalore Estates", gradient: "from-emerald-500 to-emerald-600" },
-  { name: "Chennai Realty", gradient: "from-violet-500 to-violet-600" },
-  { name: "Ahmedabad Group", gradient: "from-amber-500 to-amber-600" },
-  { name: "Pune Properties", gradient: "from-rose-500 to-rose-600" },
-  { name: "HYD Real Estate", gradient: "from-cyan-500 to-cyan-600" },
-  { name: "Kolkata Ventures", gradient: "from-indigo-500 to-indigo-600" },
+  { name: "SVC Realtors", gradient: "from-brand-500 to-brand-600", city: "Mumbai" },
+  { name: "Arihant Realty", gradient: "from-brand-alt-500 to-brand-alt-600", city: "Delhi NCR" },
+  { name: "Siddha Group", gradient: "from-emerald-500 to-emerald-600", city: "Bangalore" },
+  { name: "Vakratunda Properties", gradient: "from-violet-500 to-violet-600", city: "Pune" },
+  { name: "Sunteck Estates", gradient: "from-amber-500 to-amber-600", city: "Mumbai" },
+  { name: "Nirman Ventures", gradient: "from-cyan-500 to-cyan-600", city: "Hyderabad" },
+  { name: "Kumar Realtors", gradient: "from-rose-500 to-rose-600", city: "Chennai" },
+  { name: "ASF Group", gradient: "from-indigo-500 to-indigo-600", city: "Lucknow" },
+  { name: "Vishnu Priya Estates", gradient: "from-orange-500 to-orange-600", city: "Chennai" },
+  { name: "Maple Homes", gradient: "from-teal-500 to-teal-600", city: "Gurgaon" },
 ];
+
+function LogoItem({ logo }: { logo: (typeof logos)[number] }) {
+  return (
+    <div className="mx-6 flex shrink-0 items-center gap-3">
+      <div
+        className={`flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br shadow-sm ${logo.gradient}`}
+      >
+        <span className="text-sm font-bold text-white">{logo.name.charAt(0)}</span>
+      </div>
+      <div>
+        <span className="whitespace-nowrap text-sm font-medium text-fg">{logo.name}</span>
+        <span className="block text-[10px] text-fg-muted">{logo.city}</span>
+      </div>
+    </div>
+  );
+}
 
 export function TrustedBySection() {
   return (
-    <section className="border-b border-border bg-bg py-12" aria-label="Trusted by brokerages">
+    <section className="border-b border-border bg-bg py-16" aria-label="Trusted by brokerages">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <p className="mb-8 text-center text-xs font-semibold uppercase tracking-[0.2em] text-fg-muted">
+        <p className="mb-10 text-center text-xs font-semibold uppercase tracking-[0.2em] text-fg-muted">
           Trusted by brokerages across India
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
-          {logos.map((logo) => (
-            <div
-              key={logo.name}
-              className="flex items-center gap-2 text-sm font-medium text-fg-muted transition-colors hover:text-fg"
-            >
-              <div
-                className={`h-6 w-6 rounded-md bg-gradient-to-br ${logo.gradient} flex items-center justify-center`}
-              >
-                <span className="text-[10px] font-bold text-white">
-                  {logo.name.charAt(0)}
-                </span>
-              </div>
-              <span className="whitespace-nowrap text-sm">{logo.name}</span>
-            </div>
-          ))}
+
+        {/* Row 1 — scrolls right */}
+        <div
+          className="marquee-container mb-5 overflow-hidden"
+          style={{ maskImage: "linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)" }}
+        >
+          <div
+            className="marquee-track flex w-fit animate-marquee-right"
+            style={{ animationDuration: "45s" }}
+          >
+            {[...logos, ...logos].map((logo, i) => (
+              <LogoItem key={`r-${i}`} logo={logo} />
+            ))}
+          </div>
+        </div>
+
+        {/* Row 2 — scrolls left */}
+        <div
+          className="marquee-container overflow-hidden"
+          style={{ maskImage: "linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)" }}
+        >
+          <div
+            className="marquee-track flex w-fit animate-marquee-left"
+            style={{ animationDuration: "40s" }}
+          >
+            {[...logos, ...logos].map((logo, i) => (
+              <LogoItem key={`l-${i}`} logo={logo} />
+            ))}
+          </div>
         </div>
       </div>
+
+      <style>{`
+        .marquee-track {
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+        }
+        .marquee-container:hover .marquee-track {
+          animation-play-state: paused;
+        }
+      `}</style>
     </section>
   );
 }
