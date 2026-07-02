@@ -1,26 +1,326 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ─── Theme Values (CSS custom properties for runtime switching) ─── */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Surfaces */
+  --bg: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --surface: #ffffff;
+  --surface-secondary: #f8fafc;
+  --surface-tertiary: #f1f5f9;
+
+  /* Text */
+  --fg: #0f172a;
+  --fg-secondary: #334155;
+  --fg-tertiary: #64748b;
+  --fg-muted: #94a3b8;
+
+  /* Borders */
+  --border: #e2e8f0;
+  --border-secondary: #f1f5f9;
+  --border-accent: #2563eb;
+
+  /* Shadows (light) */
+  --shadow-xs-value: 0 1px 2px 0 rgb(0 0 0 / 0.03);
+  --shadow-sm-value: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+  --shadow-md-value: 0 4px 6px -1px rgb(0 0 0 / 0.07);
+  --shadow-lg-value: 0 10px 15px -3px rgb(0 0 0 / 0.08);
+  --shadow-xl-value: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+  --shadow-2xl-value: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+  --shadow-glow-value: 0 0 20px rgb(37 99 235 / 0.12), 0 0 40px rgb(37 99 235 / 0.06);
+  --shadow-glow-lg-value: 0 0 30px rgb(37 99 235 / 0.15), 0 0 60px rgb(37 99 235 / 0.08);
+
+  /* Semantic backgrounds */
+  --success-bg: #ecfdf5;
+  --warning-bg: #fffbeb;
+  --error-bg: #fef2f2;
+  --info-bg: #eff6ff;
 }
+
+.dark {
+  --bg: #0a0a0f;
+  --bg-secondary: #12121a;
+  --bg-tertiary: #1a1a26;
+  --surface: #12121a;
+  --surface-secondary: #1a1a26;
+  --surface-tertiary: #22222e;
+  --fg: #f0f0f5;
+  --fg-secondary: #c4c4d0;
+  --fg-tertiary: #9696ab;
+  --fg-muted: #6b6b80;
+  --border: #22222e;
+  --border-secondary: #1a1a26;
+  --border-accent: #3b82f6;
+
+  --success-bg: #064e3b;
+  --warning-bg: #78350f;
+  --error-bg: #7f1d1d;
+  --info-bg: #1e3a5f;
+
+  --shadow-xs-value: 0 1px 2px 0 rgb(0 0 0 / 0.4);
+  --shadow-sm-value: 0 1px 3px 0 rgb(0 0 0 / 0.5);
+  --shadow-md-value: 0 4px 6px -1px rgb(0 0 0 / 0.5);
+  --shadow-lg-value: 0 10px 15px -3px rgb(0 0 0 / 0.5);
+  --shadow-xl-value: 0 20px 25px -5px rgb(0 0 0 / 0.5);
+  --shadow-2xl-value: 0 25px 50px -12px rgb(0 0 0 / 0.5);
+  --shadow-glow-value: 0 0 20px rgb(37 99 235 / 0.25), 0 0 40px rgb(37 99 235 / 0.12);
+  --shadow-glow-lg-value: 0 0 30px rgb(37 99 235 / 0.3), 0 0 60px rgb(37 99 235 / 0.15);
+}
+
+/* ─── Tailwind v4 Theme (references CSS variables for runtime reactivity) ─── */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Brand (static — same in both modes) */
+  --color-brand-50: #eef2ff;
+  --color-brand-100: #dbe4ff;
+  --color-brand-200: #bac8ff;
+  --color-brand-300: #91a7ff;
+  --color-brand-400: #748ffc;
+  --color-brand-500: #2563eb;
+  --color-brand-600: #1d4ed8;
+  --color-brand-700: #1e40af;
+  --color-brand-800: #1e3a8a;
+  --color-brand-900: #172554;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-brand-alt: #7c3aed;
+  --color-brand-alt-50: #f5f3ff;
+  --color-brand-alt-100: #ede9fe;
+  --color-brand-alt-200: #ddd6fe;
+  --color-brand-alt-300: #c4b5fd;
+  --color-brand-alt-400: #a78bfa;
+  --color-brand-alt-500: #8b5cf6;
+  --color-brand-alt-600: #7c3aed;
+  --color-brand-alt-700: #6d28d9;
+  --color-brand-alt-800: #5b21b6;
+  --color-brand-alt-900: #4c1d95;
+
+  --color-whatsapp: #25d366;
+  --color-whatsapp-dark: #20bd5a;
+
+  /* Surfaces (switch with mode via var()) */
+  --color-bg: var(--bg);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-tertiary: var(--bg-tertiary);
+  --color-surface: var(--surface);
+  --color-surface-secondary: var(--surface-secondary);
+  --color-surface-tertiary: var(--surface-tertiary);
+
+  /* Text (switch with mode) */
+  --color-fg: var(--fg);
+  --color-fg-secondary: var(--fg-secondary);
+  --color-fg-tertiary: var(--fg-tertiary);
+  --color-fg-muted: var(--fg-muted);
+
+  /* Borders (switch with mode) */
+  --color-border: var(--border);
+  --color-border-secondary: var(--border-secondary);
+  --color-border-accent: var(--border-accent);
+
+  /* Semantic colors (static brands) */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+
+  /* Semantic backgrounds (switch with mode) */
+  --color-success-bg: var(--success-bg);
+  --color-warning-bg: var(--warning-bg);
+  --color-error-bg: var(--error-bg);
+  --color-info-bg: var(--info-bg);
+
+  /* Typography */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Inter Display", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Shadows (switch with mode) */
+  --shadow-xs: var(--shadow-xs-value);
+  --shadow-sm: var(--shadow-sm-value);
+  --shadow-md: var(--shadow-md-value);
+  --shadow-lg: var(--shadow-lg-value);
+  --shadow-xl: var(--shadow-xl-value);
+  --shadow-2xl: var(--shadow-2xl-value);
+  --shadow-glow: var(--shadow-glow-value);
+  --shadow-glow-lg: var(--shadow-glow-lg-value);
+
+  /* Spacing */
+  --spacing-px: 1px;
+  --spacing-0\\.5: 0.125rem;
+  --spacing-1: 0.25rem;
+  --spacing-1\\.5: 0.375rem;
+  --spacing-2: 0.5rem;
+  --spacing-2\\.5: 0.625rem;
+  --spacing-3: 0.75rem;
+  --spacing-3\\.5: 0.875rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-7: 1.75rem;
+  --spacing-8: 2rem;
+  --spacing-9: 2.25rem;
+  --spacing-10: 2.5rem;
+  --spacing-11: 2.75rem;
+  --spacing-12: 3rem;
+  --spacing-14: 3.5rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+  --spacing-24: 6rem;
+  --spacing-28: 7rem;
+  --spacing-32: 8rem;
+  --spacing-36: 9rem;
+  --spacing-40: 10rem;
+  --spacing-44: 11rem;
+  --spacing-48: 12rem;
+  --spacing-52: 13rem;
+  --spacing-56: 14rem;
+  --spacing-60: 15rem;
+  --spacing-64: 16rem;
+  --spacing-72: 18rem;
+  --spacing-80: 20rem;
+  --spacing-96: 24rem;
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.25rem;
+  --radius-4xl: 1.5rem;
+
+  /* Animations */
+  --animate-fade-in: fade-in 0.5s ease-out;
+  --animate-slide-up: slide-up 0.5s ease-out;
+  --animate-slide-down: slide-down 0.3s ease-out;
+  --animate-scale-in: scale-in 0.3s ease-out;
+  --animate-pulse-glow: pulse-glow 3s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slide-down {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
   }
 }
 
+/* ─── Base Styles ─── */
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Focus & Selection ─── */
+
+:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+::selection {
+  background-color: #2563eb;
+  color: white;
+}
+
+/* ─── Reduced Motion ─── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Utility Classes ─── */
+
+.gradient-text {
+  background: linear-gradient(135deg, #2563eb, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(24px) saturate(1.5);
+  -webkit-backdrop-filter: blur(24px) saturate(1.5);
+}
+
+.dark .glass {
+  background: rgba(10, 10, 15, 0.6);
+}
+
+.section-padding {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+@media (max-width: 768px) {
+  .section-padding {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
+/* ─── Grid Patterns ─── */
+
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(37, 99, 235, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 99, 235, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.dark .grid-pattern {
+  background-image:
+    linear-gradient(rgba(37, 99, 235, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 99, 235, 0.06) 1px, transparent 1px);
 }
