@@ -39,6 +39,10 @@
   --warning-bg: #fffbeb;
   --error-bg: #fef2f2;
   --info-bg: #eff6ff;
+
+  /* Hero canvas */
+  --hero-bg-color-1: #dbe4ff;
+  --hero-bg-color-2: #f0f4ff;
 }
 
 .dark {
@@ -69,6 +73,9 @@
   --shadow-2xl-value: 0 25px 50px -12px rgb(0 0 0 / 0.5);
   --shadow-glow-value: 0 0 20px rgb(37 99 235 / 0.25), 0 0 40px rgb(37 99 235 / 0.12);
   --shadow-glow-lg-value: 0 0 30px rgb(37 99 235 / 0.3), 0 0 60px rgb(37 99 235 / 0.15);
+
+  --hero-bg-color-1: #1a1a2e;
+  --hero-bg-color-2: #0a0a0a;
 }
 
 /* ─── Tailwind v4 Theme (references CSS variables for runtime reactivity) ─── */
@@ -292,8 +299,10 @@ body {
   animation: heroRevealUp 1s cubic-bezier(0.6, 0.04, 0.015, 1) forwards;
 }
 
-.line-mask:nth-child(2) .line-reveal { animation-delay: 0.22s; }
-.line-mask:nth-child(3) .line-reveal { animation-delay: 0.44s; }
+@media (prefers-reduced-motion: no-preference) {
+  .line-mask:nth-child(2) .line-reveal { animation-delay: 0.22s; }
+  .line-mask:nth-child(3) .line-reveal { animation-delay: 0.44s; }
+}
 
 @keyframes heroRevealUp {
   0% { transform: translateY(100%); }
@@ -305,7 +314,7 @@ body {
 .bar-track {
   width: 100%; height: 14px;
   border-radius: 9999px;
-  background: rgba(255,255,255,0.06);
+  background: var(--bg-tertiary);
   overflow: hidden;
 }
 
@@ -318,18 +327,19 @@ body {
   transition: width 1.2s cubic-bezier(0.22,1,0.36,1);
 }
 
-.bar-fill.fill-secondary { background: rgba(255,255,255,0.15); }
-.bar-fill.fill-tertiary { background: rgba(255,255,255,0.08); }
+.bar-fill.fill-secondary { background: var(--border); }
+.dark .bar-fill.fill-secondary { background: rgba(255,255,255,0.15); }
+
+.bar-fill.fill-tertiary { background: var(--border-secondary); }
+.dark .bar-fill.fill-tertiary { background: rgba(255,255,255,0.08); }
 
 /* ─── Hero Canvas Background ─── */
 
 .hero-canvas {
   position: fixed; inset: 0; z-index: -1;
   pointer-events: none;
-  background: radial-gradient(ellipse at 50% 50%, #1a1a2e 0%, #0a0a0a 70%);
+  background: radial-gradient(ellipse at 50% 50%, var(--hero-bg-color-1) 0%, var(--hero-bg-color-2) 70%);
 }
-
-.dark .hero-canvas { background: radial-gradient(ellipse at 50% 50%, #1a1a2e 0%, #0a0a0a 70%); }
 
 /* ─── Large CTA Arrow ─── */
 
@@ -339,6 +349,42 @@ body {
 
 .cta-group:hover .cta-arrow {
   transform: translateX(10px);
+}
+
+/* ─── Section Heading Classes (used across sub-pages) ─── */
+
+.section-label {
+  display: inline-block;
+  border-radius: 9999px;
+  background-color: var(--bg-tertiary);
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--brand-500, #2563eb);
+}
+
+.section-title {
+  margin-top: 1rem;
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+}
+
+@media (max-width: 640px) {
+  .section-title {
+    font-size: 1.75rem;
+  }
+}
+
+.section-sub {
+  margin-top: 1rem;
+  font-size: 1rem;
+  line-height: 1.625;
+  color: var(--fg-tertiary);
 }
 
 /* ─── Utility Classes ─── */

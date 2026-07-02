@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { createMetadata } from "@/lib/metadata";
-import { ArrowRight, Calendar, Clock, User } from "lucide-react";
+import { ArrowRight, Calendar, Clock } from "lucide-react";
 
 export const metadata = createMetadata({
   title: "Blog",

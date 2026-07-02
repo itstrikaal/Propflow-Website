@@ -1,4 +1,4 @@
-import type { NavLink, Stat, Integration, PricingTier, FAQItem, Testimonial, Feature, BlogPost } from "@/types";
+import type { NavLink, Stat, Integration, PricingTier, FAQItem, Testimonial, Feature } from "@/types";
 
 export const siteConfig = {
   name: "PropFlow",
@@ -39,18 +39,7 @@ export const footerLinks = {
     { href: "/privacy", label: "Privacy" },
     { href: "/terms", label: "Terms" },
   ],
-  resources: [
-    { href: "/blog", label: "Blog" },
-    { href: "/docs", label: "Documentation" },
-    { href: "/help", label: "Help Center" },
-    { href: "/community", label: "Community" },
-    { href: "/api", label: "API" },
-  ],
-  compare: [
-    { href: "/compare/whatsapp", label: "vs WhatsApp + Gallery" },
-    { href: "/compare/excel", label: "vs Excel / Sheets" },
-    { href: "/compare/crm", label: "vs Traditional CRM" },
-  ],
+
 };
 
 export const stats: Stat[] = [
@@ -312,36 +301,6 @@ export const comparisonData = {
     ["Price (approx/month)", "₹999", "Free", "Free", "₹3,000+"],
   ],
 };
-
-export const blogPosts: BlogPost[] = [
-  {
-    slug: "why-brokers-need-crm",
-    title: "Why Every Indian Property Broker Needs a CRM in 2026",
-    description: "The days of managing your business on WhatsApp and sticky notes are ending. Here's why a purpose-built CRM is no longer optional for real estate brokers in India.",
-    date: "2026-06-28",
-    author: "PropFlow Team",
-    category: "Industry Insights",
-    readingTime: "5 min read",
-  },
-  {
-    slug: "whatsapp-for-real-estate",
-    title: "How to Use WhatsApp for Real Estate Without Losing Your Mind",
-    description: "WhatsApp is essential for Indian brokers, but managing 50+ property chats is chaos. Here's a system that works.",
-    date: "2026-06-20",
-    author: "PropFlow Team",
-    category: "Guides",
-    readingTime: "7 min read",
-  },
-  {
-    slug: "digital-transformation-brokers",
-    title: "The Digital Transformation No One Talks About: Indian Real Estate Brokers",
-    description: "While proptech focuses on marketplaces, the real opportunity is in empowering the 1 million+ brokers who actually close deals.",
-    date: "2026-06-12",
-    author: "PropFlow Team",
-    category: "Thought Leadership",
-    readingTime: "6 min read",
-  },
-];
 
 export const ROUTES = {
   home: "/",

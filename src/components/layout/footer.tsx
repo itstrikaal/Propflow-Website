@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { siteConfig, footerLinks } from "@/lib/constants";
 import { ArrowUpRight } from "lucide-react";
+import { siteConfig, footerLinks } from "@/lib/constants";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -66,17 +66,71 @@ export function Footer() {
           <div>
             <h3 className="mb-4 text-sm font-semibold text-fg">Compare</h3>
             <ul className="space-y-3">
-              {footerLinks.compare.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="inline-flex items-center gap-1 text-sm text-fg-tertiary transition-colors hover:text-fg"
-                  >
-                    {link.label}
-                    <ArrowUpRight className="h-3 w-3" />
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link
+                  href="/compare/whatsapp"
+                  className="inline-flex items-center gap-1 text-sm text-fg-tertiary transition-colors hover:text-fg"
+                >
+                  vs WhatsApp + Gallery
+                  <ArrowUpRight className="h-3 w-3" />
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/compare/excel"
+                  className="inline-flex items-center gap-1 text-sm text-fg-tertiary transition-colors hover:text-fg"
+                >
+                  vs Excel / Sheets
+                  <ArrowUpRight className="h-3 w-3" />
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/compare/crm"
+                  className="inline-flex items-center gap-1 text-sm text-fg-tertiary transition-colors hover:text-fg"
+                >
+                  vs Traditional CRM
+                  <ArrowUpRight className="h-3 w-3" />
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="mb-4 text-sm font-semibold text-fg">Resources</h3>
+            <ul className="space-y-3">
+              <li>
+                <Link
+                  href="/blog"
+                  className="text-sm text-fg-tertiary transition-colors hover:text-fg"
+                >
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/security"
+                  className="text-sm text-fg-tertiary transition-colors hover:text-fg"
+                >
+                  Security
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/roadmap"
+                  className="text-sm text-fg-tertiary transition-colors hover:text-fg"
+                >
+                  Roadmap
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="text-sm text-fg-tertiary transition-colors hover:text-fg"
+                >
+                  Contact
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

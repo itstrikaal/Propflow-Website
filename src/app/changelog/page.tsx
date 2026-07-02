@@ -1,6 +1,6 @@
 import { CTASection } from "@/components/sections/cta";
 import { createMetadata } from "@/lib/metadata";
-import { Rocket, Bug, Sparkles, ArrowUp } from "lucide-react";
+import { Bug, Sparkles, ArrowUp } from "lucide-react";
 
 export const metadata = createMetadata({
   title: "Changelog",

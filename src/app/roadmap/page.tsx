@@ -1,6 +1,6 @@
 import { CTASection } from "@/components/sections/cta";
 import { createMetadata } from "@/lib/metadata";
-import { Sparkles, Rocket, CheckCircle, Timer } from "lucide-react";
+import { Timer } from "lucide-react";
 
 export const metadata = createMetadata({
   title: "Roadmap",
