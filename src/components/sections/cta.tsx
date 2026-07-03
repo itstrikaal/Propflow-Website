@@ -34,7 +34,7 @@ export function CTASection() {
             Start your 14-day free trial today. No credit card required.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Link href="/pricing">
+            <Link href="https://app.propflow.in/sign-up">
               <Button
                 size="xl"
                 className="cta-group gap-2 bg-white text-brand-600 hover:bg-white/90 shadow-xl"

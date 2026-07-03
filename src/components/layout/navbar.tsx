@@ -92,10 +92,10 @@ export function Navbar() {
             </button>
           )}
           <Button variant="ghost" size="sm" asChild>
-            <Link href="/contact">Sign In</Link>
+            <Link href="https://app.propflow.in/sign-in">Sign In</Link>
           </Button>
           <Button variant="gradient" size="sm" asChild>
-            <Link href="/pricing">Start Free Trial</Link>
+            <Link href="https://app.propflow.in/sign-up">Start Free Trial</Link>
           </Button>
         </div>
 
@@ -146,12 +146,12 @@ export function Navbar() {
               ))}
             </nav>
             <div className="mt-auto flex flex-col gap-3 pt-6">
-              <Link href="/contact" className="w-full">
+              <Link href="https://app.propflow.in/sign-in" className="w-full">
                 <Button variant="secondary" className="w-full">
                   Sign In
                 </Button>
               </Link>
-              <Link href="/pricing" className="w-full">
+              <Link href="https://app.propflow.in/sign-up" className="w-full">
                 <Button variant="gradient" className="w-full">
                   Start Free Trial
                 </Button>

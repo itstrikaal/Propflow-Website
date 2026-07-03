@@ -144,7 +144,7 @@ export function HeroSection() {
                 transition={{ duration: 0.6, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 className="mt-8 flex flex-col gap-4 sm:flex-row"
               >
-                <Link href="/pricing">
+                <Link href="https://app.propflow.in/sign-up">
                   <Button variant="gradient" size="lg" className="cta-group w-full gap-2 sm:w-auto">
                     Start Free Trial
                     <ArrowRight className="cta-arrow h-4 w-4" />

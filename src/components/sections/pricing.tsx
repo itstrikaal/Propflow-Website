@@ -124,7 +124,7 @@ export function PricingSection() {
                   </Button>
                 </Link>
               ) : (
-                <Link href="/pricing">
+                <Link href="https://app.propflow.in/sign-up">
                   <Button
                     variant={tier.highlighted ? "gradient" : "secondary"}
                     className="w-full"
