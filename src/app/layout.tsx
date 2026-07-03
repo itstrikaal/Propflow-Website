@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "@/components/shared/theme-provider";
 import { SkipToContent } from "@/components/shared/skip-to-content";
 import { ErrorBoundary } from "@/components/shared/error-boundary";
@@ -108,6 +109,7 @@ export default function RootLayout({
           <Footer />
           <CookieConsent />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
