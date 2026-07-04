@@ -6,6 +6,21 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const runtime = "edge";
 
+// Warm-neutral palette to match the redesigned site. Was previously using
+// the old dark/blue/violet brand gradient which clashed with the monochrome
+// mesh theme.
+const PALETTE = {
+  bgFrom: "#fafaf9",
+  bgTo: "#f5efe6",
+  fg: "#1c1917",
+  fgSecondary: "#44403c",
+  fgMuted: "#78716c",
+  surface: "#ffffff",
+  accent: "#1c1917",
+  glow1: "rgba(254, 215, 170, 0.45)", // warm peach
+  glow2: "rgba(231, 229, 228, 0.5)", // stone
+} as const;
+
 export default async function Image() {
   // Per-route title override (e.g. for dynamic [slug] pages) can be wired
   // here later by reading the params Next.js passes to route handlers. For
@@ -20,15 +35,14 @@ export default async function Image() {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          background:
-            "linear-gradient(135deg, #0a0a0f 0%, #1e1b4b 50%, #0f172a 100%)",
+          background: `linear-gradient(135deg, ${PALETTE.bgFrom} 0%, ${PALETTE.bgTo} 100%)`,
           padding: "80px",
           fontFamily: "system-ui, -apple-system, sans-serif",
-          color: "white",
+          color: PALETTE.fg,
           position: "relative",
         }}
       >
-        {/* Background glow */}
+        {/* Background glow orbs */}
         <div
           style={{
             position: "absolute",
@@ -37,8 +51,7 @@ export default async function Image() {
             width: "600px",
             height: "600px",
             borderRadius: "9999px",
-            background:
-              "radial-gradient(circle, rgba(124,58,237,0.4) 0%, transparent 70%)",
+            background: `radial-gradient(circle, ${PALETTE.glow1} 0%, transparent 70%)`,
             display: "flex",
           }}
         />
@@ -50,8 +63,7 @@ export default async function Image() {
             width: "600px",
             height: "600px",
             borderRadius: "9999px",
-            background:
-              "radial-gradient(circle, rgba(37,99,235,0.4) 0%, transparent 70%)",
+            background: `radial-gradient(circle, ${PALETTE.glow2} 0%, transparent 70%)`,
             display: "flex",
           }}
         />
@@ -63,13 +75,13 @@ export default async function Image() {
               width: "64px",
               height: "64px",
               borderRadius: "16px",
-              background: "linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)",
+              background: `linear-gradient(135deg, ${PALETTE.fg} 0%, ${PALETTE.fgSecondary} 100%)`,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               fontSize: "36px",
               fontWeight: 800,
-              color: "white",
+              color: PALETTE.surface,
             }}
           >
             P
@@ -79,6 +91,7 @@ export default async function Image() {
               fontSize: "32px",
               fontWeight: 700,
               letterSpacing: "-1px",
+              color: PALETTE.fg,
             }}
           >
             {siteConfig.name}
@@ -96,21 +109,22 @@ export default async function Image() {
         >
           <div
             style={{
-              fontSize: "68px",
-              fontWeight: 800,
+              fontSize: "64px",
+              fontWeight: 700,
               lineHeight: 1.05,
               letterSpacing: "-2px",
               maxWidth: "900px",
               display: "flex",
+              color: PALETTE.fg,
             }}
           >
             {title}
           </div>
           <div
             style={{
-              fontSize: "26px",
-              color: "rgba(255,255,255,0.7)",
-              maxWidth: "800px",
+              fontSize: "24px",
+              color: PALETTE.fgMuted,
+              maxWidth: "820px",
               lineHeight: 1.4,
               display: "flex",
             }}
@@ -119,17 +133,17 @@ export default async function Image() {
           </div>
         </div>
 
-        {/* Trust badges */}
+        {/* Trust row */}
         <div
           style={{
             display: "flex",
             gap: "16px",
             marginTop: "40px",
-            fontSize: "20px",
-            color: "rgba(255,255,255,0.6)",
+            fontSize: "18px",
+            color: PALETTE.fgSecondary,
           }}
         >
-          <div style={{ display: "flex" }}>🇮🇳 Made in India, for India</div>
+          <div style={{ display: "flex" }}>Made in India, for India</div>
           <div style={{ display: "flex" }}>•</div>
           <div style={{ display: "flex" }}>Trusted by 1,800+ brokers</div>
           <div style={{ display: "flex" }}>•</div>

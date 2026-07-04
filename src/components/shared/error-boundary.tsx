@@ -29,10 +29,17 @@ export class ErrorBoundary extends Component<Props, State> {
       if (this.props.fallback) return this.props.fallback;
 
       return (
-        <div className="flex min-h-[400px] items-center justify-center" role="alert">
-          <div className="mx-auto max-w-md text-center">
-            <AlertTriangle className="text-warning mx-auto h-12 w-12" />
-            <h2 className="text-fg mt-4 text-xl font-semibold">Something went wrong</h2>
+        <div
+          className="flex min-h-[400px] items-center justify-center"
+          role="alert"
+        >
+          <div className="mx-auto max-w-md px-6 text-center">
+            <div className="border-border bg-surface-secondary mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border">
+              <AlertTriangle className="text-warning h-6 w-6" />
+            </div>
+            <h2 className="font-display text-fg mt-5 text-xl font-semibold tracking-[-0.022em]">
+              Something went wrong
+            </h2>
             <p className="text-fg-tertiary mt-2 text-sm">
               An unexpected error occurred. Please try again.
             </p>

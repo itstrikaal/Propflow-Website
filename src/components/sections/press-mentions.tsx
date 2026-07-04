@@ -17,18 +17,18 @@ const mentions = [
 export function PressMentionsSection() {
   return (
     <section
-      className="border-border bg-bg-secondary border-y py-12"
+      className="bg-surface-secondary border-border/60 border-y py-14"
       aria-label="Press and media coverage"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <p className="text-fg-muted text-center text-xs font-semibold tracking-[0.2em] uppercase">
+        <p className="text-fg-muted text-center text-[11px] font-medium tracking-[0.2em] uppercase">
           As featured in
         </p>
         <div className="mt-8 grid grid-cols-2 items-center gap-x-8 gap-y-6 sm:grid-cols-3 lg:grid-cols-6">
           {mentions.map((m) => (
             <div
               key={m.name}
-              className="flex h-10 items-center justify-center opacity-60 grayscale transition-all hover:opacity-100 hover:grayscale-0"
+              className="flex h-10 items-center justify-center opacity-50 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
               title={m.name}
             >
               {/* Static SVG wordmarks — no benefit from next/image wrapping. */}
@@ -40,16 +40,16 @@ export function PressMentionsSection() {
                 height={40}
                 loading="lazy"
                 decoding="async"
-                className="h-8 w-auto dark:invert"
+                className="h-7 w-auto dark:invert"
               />
             </div>
           ))}
         </div>
-        <p className="text-fg-muted mt-6 text-center text-xs">
+        <p className="text-fg-muted mt-8 text-center text-xs">
           Coverage inquiries:{" "}
           <a
             href={`mailto:${siteConfig.email}`}
-            className="text-brand-500 underline-offset-2 hover:underline"
+            className="text-fg underline-offset-4 transition-opacity hover:opacity-70"
           >
             {siteConfig.email}
           </a>

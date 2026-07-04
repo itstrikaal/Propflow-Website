@@ -1,12 +1,16 @@
 import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
+import { MeshBackground, type MeshVariant } from "@/components/shared/mesh-background";
+import { SectionHeading } from "@/components/shared/section-heading";
 
-const sectionVariants = cva("section-padding", {
+const sectionVariants = cva("relative overflow-hidden", {
   variants: {
     variant: {
       light: "bg-bg",
       dark: "bg-bg-secondary",
-      brand: "from-brand-500/5 to-brand-alt-500/5 bg-gradient-to-b",
+      muted: "bg-surface-secondary",
+      transparent: "bg-transparent",
+      brand: "bg-mesh-base",
     },
   },
   defaultVariants: {
@@ -15,14 +19,29 @@ const sectionVariants = cva("section-padding", {
 });
 
 interface SectionWrapperProps
-  extends React.HTMLAttributes<HTMLElement>, VariantProps<typeof sectionVariants> {
+  extends Omit<React.HTMLAttributes<HTMLElement>, "title">, VariantProps<typeof sectionVariants> {
   id?: string;
   label?: string;
-  title?: string;
-  description?: string;
+  title?: React.ReactNode;
+  description?: React.ReactNode;
+  /** When true, the title renders in serif (display) font. */
+  serifTitle?: boolean;
+  /** Heading alignment override */
+  headingAlign?: "left" | "center";
+  /** Optional mesh background behind the section content */
+  mesh?: MeshVariant | false;
+  /** Animate the mesh drift */
+  meshAnimated?: boolean;
+  /** Add film-grain to the mesh */
+  meshGrain?: boolean;
+  /** Inner container max-width */
   containerClass?: string;
 }
 
+/**
+ * Universal section wrapper. Renders a `<section>` with optional mesh
+ * background and a standardised heading block (eyebrow + title + description).
+ */
 export function SectionWrapper({
   id,
   label,
@@ -31,35 +50,43 @@ export function SectionWrapper({
   variant,
   className,
   containerClass,
+  mesh = false,
+  meshAnimated = false,
+  meshGrain = false,
+  serifTitle,
+  headingAlign,
   children,
   ...props
 }: SectionWrapperProps) {
   return (
     <section
       id={id}
-      className={cn(sectionVariants({ variant }), className)}
-      aria-label={title || label}
+      className={cn("section-padding", sectionVariants({ variant }), className)}
+      aria-label={typeof title === "string" ? title : (label ?? undefined)}
       {...props}
     >
-      <div className={cn("mx-auto max-w-7xl px-4 sm:px-6 lg:px-8", containerClass)}>
+      {mesh && (
+        <MeshBackground
+          variant={mesh}
+          animated={meshAnimated}
+          grain={meshGrain}
+        />
+      )}
+
+      <div
+        className={cn(
+          "relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8",
+          containerClass
+        )}
+      >
         {(label || title || description) && (
-          <div className="mx-auto mb-12 max-w-2xl text-center lg:mb-16">
-            {label && (
-              <span className="text-brand-500 mb-4 inline-block text-xs font-semibold tracking-widest uppercase">
-                {label}
-              </span>
-            )}
-            {title && (
-              <h2 className="text-fg text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-                {title}
-              </h2>
-            )}
-            {description && (
-              <p className="text-fg-tertiary mt-4 text-base leading-relaxed sm:text-lg">
-                {description}
-              </p>
-            )}
-          </div>
+          <SectionHeading
+            label={label}
+            title={title}
+            description={description}
+            align={headingAlign ?? "center"}
+            serifTitle={serifTitle}
+          />
         )}
         {children}
       </div>

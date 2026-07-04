@@ -3,6 +3,9 @@ import { notFound } from "next/navigation";
 import { CTASection } from "@/components/sections/cta";
 import { createMetadata } from "@/lib/metadata";
 import { comparisonData } from "@/lib/constants";
+import { MeshBackground } from "@/components/shared/mesh-background";
+import { JsonLd } from "@/components/shared/json-ld";
+import { breadcrumbSchema, webPageSchema } from "@/lib/schema";
 import { ArrowLeft, ArrowUpRight, Check, X } from "lucide-react";
 
 const pages = [
@@ -93,38 +96,60 @@ export default async function ComparePage({
 
   return (
     <>
-      <section className="section-padding bg-bg">
-        <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+      <JsonLd
+        id="ld-compare-page"
+        schema={[
+          webPageSchema({
+            title: page.title,
+            description: page.desc,
+            path: `/compare/${slug}`,
+          }),
+          breadcrumbSchema([
+            { label: "Home", href: "/" },
+            { label: "Pricing", href: "/pricing" },
+            { label: page.label, href: `/compare/${slug}` },
+          ]),
+        ]}
+      />
+
+      <section
+        className="relative overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-20"
+        aria-label="Compare"
+      >
+        <MeshBackground variant="hero" grain />
+        <div className="relative mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <Link
             href="/pricing"
-            className="text-fg-tertiary hover:text-fg mb-8 inline-flex items-center gap-1 text-sm transition-colors"
+            className="text-fg-tertiary hover:text-fg mb-6 inline-flex items-center gap-1 text-sm transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
-            Back to Pricing
+            Back to pricing
           </Link>
           <span className="section-label">Compare</span>
-          <h1 className="section-title">{page.title}</h1>
+          <h1 className="font-display section-title">{page.title}</h1>
           <p className="section-sub mx-auto max-w-2xl">{page.desc}</p>
         </div>
       </section>
 
-      <section className="section-padding bg-surface">
+      <section className="section-padding bg-bg">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="border-border overflow-x-auto rounded-2xl border">
+          <div className="border-border overflow-x-auto rounded-3xl border">
             <table className="w-full text-left text-sm">
               <thead>
-                <tr className="border-border bg-bg-secondary border-b">
+                <tr className="border-border bg-surface-secondary border-b">
                   {comparisonData.headers.map((header, i) => (
                     <th
                       key={header}
                       className={`text-fg px-4 py-3 font-semibold sm:px-6 ${
-                        i === 0 ? "bg-bg-secondary sticky left-0" : ""
-                      } ${i === competitorCol ? "text-brand-500" : ""} ${
+                        i === 0 ? "bg-surface-secondary sticky left-0" : ""
+                      } ${i === competitorCol ? "text-fg" : ""} ${
                         i > 0 && i !== competitorCol ? "text-fg-muted" : ""
                       }`}
                     >
                       <span className="flex items-center gap-1.5">
-                        {i === competitorCol && <ArrowUpRight className="h-3.5 w-3.5" />}
+                        {i === competitorCol && (
+                          <ArrowUpRight className="h-3.5 w-3.5" />
+                        )}
                         {i === 1 ? <strong className="text-fg">{header}</strong> : header}
                       </span>
                     </th>
@@ -136,7 +161,7 @@ export default async function ComparePage({
                   <tr
                     key={row[0]}
                     className={`border-border border-b last:border-0 ${
-                      rowIdx % 2 === 0 ? "bg-bg" : "bg-surface"
+                      rowIdx % 2 === 0 ? "bg-surface" : "bg-bg"
                     }`}
                   >
                     {row.map((_, colIdx) => (
@@ -146,10 +171,10 @@ export default async function ComparePage({
                           colIdx === 0
                             ? "text-fg sticky left-0 font-medium"
                             : colIdx === competitorCol
-                              ? "bg-brand-500/5 text-brand-600 font-medium"
+                              ? "bg-surface-tertiary text-fg font-medium"
                               : "text-fg-secondary"
-                        } ${colIdx === 0 ? "bg-bg" : ""} ${
-                          colIdx === 0 && rowIdx % 2 === 1 ? "bg-surface" : ""
+                        } ${colIdx === 0 ? "bg-surface" : ""} ${
+                          colIdx === 0 && rowIdx % 2 === 1 ? "bg-bg" : ""
                         }`}
                       >
                         {colIdx === 0 ? row[0] : renderCell(rowIdx, colIdx)}

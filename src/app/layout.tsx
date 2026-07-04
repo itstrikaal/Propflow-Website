@@ -2,14 +2,14 @@ import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
 import { Inter, Playfair_Display } from "next/font/google";
 import { MotionConfig } from "framer-motion";
-import Script from "next/script";
 import { ThemeProvider } from "@/components/shared/theme-provider";
 import { SkipToContent } from "@/components/shared/skip-to-content";
 import { ErrorBoundary } from "@/components/shared/error-boundary";
 import { CookieConsent } from "@/components/shared/cookie-consent";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
-import { organizationSchema, softwareApplicationSchema } from "@/lib/schema";
+import { JsonLd } from "@/components/shared/json-ld";
+import { organizationSchema, softwareApplicationSchema, websiteSchema } from "@/lib/schema";
 import { siteConfig } from "@/lib/constants";
 import "./globals.css";
 
@@ -70,11 +70,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  width: "device-width",
+  width: 1440,
   initialScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0f" },
+    { media: "(prefers-color-scheme: light)", color: "#fafaf9" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a09" },
   ],
 };
 
@@ -98,25 +98,13 @@ export default async function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="bg-bg text-fg min-h-screen font-sans antialiased">
-        <Script
-          id="schema-org"
-          type="application/ld+json"
-          strategy="afterInteractive"
-          nonce={nonce}
-          // The shape of these objects is owned by us and never user input.
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema),
-          }}
-        />
-        <Script
-          id="schema-software"
-          type="application/ld+json"
-          strategy="afterInteractive"
-          nonce={nonce}
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(softwareApplicationSchema),
-          }}
-        />
+        {/* Global structured data — rendered as plain <script> tags via the
+            JsonLd component (no client-side Script hydration), which avoids
+            the React "script tag while rendering" warning. The `nonce` from
+            middleware is forwarded so these still satisfy a strict CSP. */}
+        <JsonLd id="schema-org" nonce={nonce} schema={organizationSchema} />
+        <JsonLd id="schema-website" nonce={nonce} schema={websiteSchema()} />
+        <JsonLd id="schema-software" nonce={nonce} schema={softwareApplicationSchema} />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

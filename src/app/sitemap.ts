@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/constants";
+import { getAllPosts } from "@/lib/blog";
 
 const STATIC_ROUTES = [
   { path: "", priority: 1, changeFrequency: "weekly" as const },
@@ -19,14 +20,7 @@ const STATIC_ROUTES = [
 
 const COMPARE_ROUTES = ["whatsapp", "excel", "crm"];
 
-const BLOG_POSTS = [
-  { slug: "why-brokers-need-a-crm", date: "2026-06-28" },
-  { slug: "whatsapp-for-real-estate", date: "2026-06-20" },
-  { slug: "rera-compliance-digital", date: "2026-06-15" },
-  { slug: "ai-lead-scoring-real-estate", date: "2026-06-10" },
-];
-
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.map((r) => ({
@@ -43,11 +37,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  const blogEntries: MetadataRoute.Sitemap = BLOG_POSTS.map((p) => ({
-    url: `${siteConfig.url}/blog/${p.slug}`,
-    lastModified: new Date(p.date),
+  // Pull the live list of blog posts so the sitemap stays in sync with the
+  // `content/blog/*.mdx` directory — no more hardcoded slugs.
+  const posts = await getAllPosts();
+  const blogEntries: MetadataRoute.Sitemap = posts.map((post) => ({
+    url: `${siteConfig.url}/blog/${post.slug}`,
+    lastModified: new Date(post.date),
     changeFrequency: "monthly" as const,
-    priority: 0.6,
+    priority: post.featured ? 0.8 : 0.6,
   }));
 
   return [...staticEntries, ...compareEntries, ...blogEntries];

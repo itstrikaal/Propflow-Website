@@ -3,12 +3,11 @@
 import { motion } from "framer-motion";
 import { SectionWrapper } from "@/components/shared/section-wrapper";
 import { Check, MessageCircle, LayoutDashboard, Zap } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 const solutions = [
   {
     icon: MessageCircle,
-    title: "WhatsApp-First Design",
+    title: "WhatsApp-first design",
     description:
       "Every message becomes a tracked lead. Share properties, documents, and updates without leaving WhatsApp.",
     benefits: [
@@ -16,11 +15,10 @@ const solutions = [
       "Share property packages in one tap",
       "Full conversation history",
     ],
-    gradient: "from-brand-500 to-brand-600",
   },
   {
     icon: LayoutDashboard,
-    title: "Unified Dashboard",
+    title: "Unified dashboard",
     description:
       "Properties, clients, documents, and deals — all in one place. Your entire brokerage, visible at a glance.",
     benefits: [
@@ -28,11 +26,10 @@ const solutions = [
       "Team-wide data sync",
       "Single source of truth",
     ],
-    gradient: "from-brand-alt-500 to-brand-alt-600",
   },
   {
     icon: Zap,
-    title: "AI-Powered Automation",
+    title: "AI-powered automation",
     description:
       "PropFlow learns your workflow. It scores leads, suggests follow-ups, and automates busywork so you can focus on closing.",
     benefits: [
@@ -40,7 +37,6 @@ const solutions = [
       "Auto-reminders & follow-ups",
       "Document package generation",
     ],
-    gradient: "from-brand-600 to-brand-alt-500",
   },
 ];
 
@@ -53,7 +49,7 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
@@ -66,7 +62,8 @@ export function SolutionSection() {
     <SectionWrapper
       id="solution"
       variant="light"
-      label="The Solution"
+      label="The solution"
+      serifTitle
       title="PropFlow brings everything together."
       description="One platform. WhatsApp, properties, documents, and deals — unified. No more app-switching."
     >
@@ -74,49 +71,42 @@ export function SolutionSection() {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: true, margin: "-80px" }}
         className="grid gap-6 lg:grid-cols-3"
       >
-        {solutions.map((solution) => (
+        {solutions.map((solution, idx) => (
           <motion.div
             key={solution.title}
             variants={itemVariants}
-            className="group border-border bg-surface relative overflow-hidden rounded-2xl border p-8 transition-all duration-300 hover:shadow-xl"
+            className="group border-border bg-surface relative flex flex-col overflow-hidden rounded-3xl border p-8 transition-all duration-500 hover:-translate-y-0.5 hover:shadow-lg"
           >
-            <div
-              className={cn(
-                "absolute inset-x-0 top-0 h-1 bg-gradient-to-r",
-                solution.gradient
-              )}
-            />
+            {/* Step index */}
+            <span className="text-fg-muted absolute top-7 right-7 font-display text-sm tracking-[-0.02em] tabular-nums">
+              0{idx + 1}
+            </span>
 
-            <div className="relative z-10">
-              <div
-                className={cn(
-                  "mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br shadow-sm",
-                  solution.gradient
-                )}
-              >
-                <solution.icon className="h-6 w-6 text-white" />
-              </div>
-
-              <h3 className="text-fg text-xl font-semibold">{solution.title}</h3>
-              <p className="text-fg-tertiary mt-3 text-sm leading-relaxed">
-                {solution.description}
-              </p>
-
-              <ul className="mt-6 space-y-2.5">
-                {solution.benefits.map((benefit) => (
-                  <li
-                    key={benefit}
-                    className="text-fg-secondary flex items-start gap-2.5 text-sm"
-                  >
-                    <Check className="text-success mt-0.5 h-4 w-4 shrink-0" />
-                    <span>{benefit}</span>
-                  </li>
-                ))}
-              </ul>
+            <div className="border-border bg-surface-secondary flex h-12 w-12 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-105">
+              <solution.icon className="text-fg h-5 w-5" />
             </div>
+
+            <h3 className="text-fg mt-6 text-xl font-semibold tracking-[-0.022em]">
+              {solution.title}
+            </h3>
+            <p className="text-fg-tertiary mt-3 text-sm leading-relaxed">
+              {solution.description}
+            </p>
+
+            <ul className="mt-6 space-y-2.5">
+              {solution.benefits.map((benefit) => (
+                <li
+                  key={benefit}
+                  className="text-fg-secondary flex items-start gap-2.5 text-sm"
+                >
+                  <Check className="text-fg mt-0.5 h-4 w-4 shrink-0" />
+                  <span>{benefit}</span>
+                </li>
+              ))}
+            </ul>
           </motion.div>
         ))}
       </motion.div>

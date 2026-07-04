@@ -7,14 +7,18 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-brand-500/10 text-brand-600 dark:text-brand-400 border-transparent",
-        secondary: "bg-surface-secondary text-fg-secondary border-transparent",
+        default: "bg-surface-secondary text-fg-secondary border-border",
+        secondary: "bg-surface-tertiary text-fg-tertiary border-transparent",
         success: "bg-success-bg text-success border-transparent",
         warning: "bg-warning-bg text-warning border-transparent",
         error: "bg-error-bg text-error border-transparent",
-        outline: "text-fg-secondary",
+        outline: "text-fg-secondary border-border bg-transparent",
         gradient:
-          "from-brand-500 to-brand-alt-500 border-transparent bg-gradient-to-r text-white",
+          "from-accent-600 to-accent-violet-600 border-transparent bg-gradient-to-r text-white",
+        accent:
+          "bg-accent-50 text-accent-700 border-accent-200/60 dark:bg-accent-900/20 dark:text-accent-300 dark:border-accent-800/40",
+        inverted:
+          "bg-fg text-bg border-transparent",
       },
     },
     defaultVariants: {

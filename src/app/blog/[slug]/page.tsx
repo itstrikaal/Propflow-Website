@@ -2,6 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createMetadata } from "@/lib/metadata";
 import { getAllSlugs, getPostBySlug } from "@/lib/blog";
+import { blogPostingSchema, breadcrumbSchema } from "@/lib/schema";
+import { JsonLd } from "@/components/shared/json-ld";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 
 function formatDate(iso: string): string {
@@ -41,11 +43,17 @@ function renderMarkdown(src: string): React.ReactNode[] {
       const text = h[2];
       out.push(
         level === 2 ? (
-          <h2 key={key++} className="text-fg mt-12 text-2xl font-bold tracking-tight">
+          <h2
+            key={key++}
+            className="font-display text-fg mt-12 text-2xl font-semibold tracking-[-0.025em]"
+          >
             {renderInline(text)}
           </h2>
         ) : (
-          <h3 key={key++} className="text-fg mt-8 text-xl font-semibold tracking-tight">
+          <h3
+            key={key++}
+            className="font-display text-fg mt-8 text-xl font-semibold tracking-[-0.022em]"
+          >
             {renderInline(text)}
           </h3>
         )
@@ -151,18 +159,37 @@ export default async function BlogPostPage({
   if (!post) notFound();
 
   return (
-    <section className="section-padding bg-bg">
+    <>
+      <JsonLd
+        id="ld-blog-post"
+        schema={[
+          breadcrumbSchema([
+            { label: "Home", href: "/" },
+            { label: "Blog", href: "/blog" },
+            { label: post.title, href: `/blog/${post.slug}` },
+          ]),
+          blogPostingSchema({
+            title: post.title,
+            description: post.description,
+            slug: post.slug,
+            author: post.author,
+            datePublished: post.date,
+          }),
+        ]}
+      />
+
+    <section className="section-padding bg-bg pt-32 sm:pt-40">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <Link
           href="/blog"
-          className="text-fg-muted hover:text-fg mb-8 inline-flex items-center gap-1.5 text-sm transition-colors"
+          className="text-fg-tertiary hover:text-fg mb-8 inline-flex items-center gap-1.5 text-sm transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to blog
         </Link>
 
         <div className="text-fg-muted flex flex-wrap items-center gap-3 text-xs">
-          <span className="bg-brand-500/10 text-brand-500 rounded-full px-2.5 py-0.5 text-[10px] font-medium">
+          <span className="bg-surface-secondary text-fg-secondary rounded-full px-2.5 py-0.5 text-[10px] font-medium tracking-wider uppercase">
             {post.category}
           </span>
           <span className="flex items-center gap-1">
@@ -175,7 +202,7 @@ export default async function BlogPostPage({
           </span>
         </div>
 
-        <h1 className="text-fg mt-6 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+        <h1 className="font-display text-fg mt-6 text-3xl font-semibold tracking-[-0.03em] sm:text-4xl lg:text-5xl">
           {post.title}
         </h1>
 
@@ -188,21 +215,26 @@ export default async function BlogPostPage({
 
         <hr className="border-border my-12" />
 
-        <div className="border-border bg-surface rounded-2xl border p-6 text-center sm:p-8">
-          <p className="text-fg text-sm font-semibold">
+        <div className="border-border bg-surface relative overflow-hidden rounded-3xl border p-8 text-center sm:p-10">
+          <div
+            aria-hidden="true"
+            className="from-mesh-1 via-mesh-2 to-mesh-3 absolute -top-12 -right-12 h-40 w-40 rounded-full bg-gradient-to-br opacity-50 blur-2xl"
+          />
+          <p className="text-fg relative text-base font-semibold tracking-[-0.018em]">
             Ready to run your brokerage on PropFlow?
           </p>
-          <p className="text-fg-tertiary mt-2 text-sm">
+          <p className="text-fg-tertiary relative mt-2 text-sm">
             14-day free trial. No credit card required.
           </p>
           <Link
             href="https://app.propflow.in/sign-up"
-            className="from-brand-500 to-brand-alt-500 mt-4 inline-flex items-center justify-center rounded-xl bg-gradient-to-r px-5 py-2.5 text-sm font-semibold text-white shadow-md hover:opacity-90"
+            className="bg-fg text-bg hover:bg-fg-secondary relative mt-5 inline-flex items-center justify-center rounded-xl px-5 py-2.5 text-sm font-semibold shadow-sm transition-colors"
           >
             Start free trial
           </Link>
         </div>
       </div>
     </section>
+    </>
   );
 }

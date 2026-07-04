@@ -1,121 +1,178 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Star, Quote } from "lucide-react";
 import { SectionWrapper } from "@/components/shared/section-wrapper";
 import { testimonials } from "@/lib/constants";
-import { Quote, ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+function TestimonialCard({
+  name,
+  role,
+  company,
+  content,
+  rating,
+}: {
+  name: string;
+  role: string;
+  company: string;
+  content: string;
+  rating: number;
+}) {
+  const initials = name
+    .split(" ")
+    .map((n) => n[0])
+    .slice(0, 2)
+    .join("");
+
+  return (
+    <article
+      className={cn(
+        "border-border bg-surface group flex w-[380px] shrink-0 flex-col rounded-2xl border p-7 shadow-xs",
+        "transition-all duration-500 hover:-translate-y-0.5 hover:shadow-md"
+      )}
+    >
+      <Quote className="text-fg-muted/30 mb-4 h-5 w-5" />
+
+      <div className="mb-4 flex gap-0.5">
+        {Array.from({ length: rating }).map((_, i) => (
+          <Star key={i} className="fill-warning text-warning h-3.5 w-3.5" />
+        ))}
+      </div>
+
+      <p className="text-fg-secondary flex-1 text-sm leading-relaxed">
+        &ldquo;{content}&rdquo;
+      </p>
+
+      <div className="mt-6 flex items-center gap-3 border-t border-[color:var(--border-secondary)] pt-5">
+        <div className="bg-fg text-bg flex h-10 w-10 items-center justify-center rounded-full font-display text-sm font-semibold tracking-[-0.02em]">
+          {initials}
+        </div>
+        <div className="min-w-0 flex-1">
+          <p className="text-fg truncate text-sm font-semibold">{name}</p>
+          <p className="text-fg-muted truncate text-xs">
+            {role} · {company}
+          </p>
+        </div>
+      </div>
+    </article>
+  );
+}
+
 export function TestimonialsSection() {
-  const [current, setCurrent] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-
-  const next = useCallback(() => {
-    setCurrent((prev) => (prev + 1) % testimonials.length);
-    setIsAutoPlaying(false);
-  }, []);
-
-  const prev = useCallback(() => {
-    setCurrent((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-    setIsAutoPlaying(false);
-  }, []);
-
-  // Auto-play with pause on interaction
-  useEffect(() => {
-    if (!isAutoPlaying) return;
-    const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % testimonials.length);
-    }, 6000);
-    return () => clearInterval(interval);
-  }, [isAutoPlaying]);
-
-  const testimonial = testimonials[current];
+  // Split testimonials into two rows for the alternating marquee
+  const half = Math.ceil(testimonials.length / 2);
+  const rowA = [...testimonials.slice(0, half), ...testimonials.slice(0, half)];
+  const rowB = [...testimonials.slice(half), ...testimonials.slice(half)];
 
   return (
     <SectionWrapper
       id="testimonials"
-      variant="dark"
+      variant="muted"
       label="Testimonials"
-      title="Trusted by brokers who made the switch."
-      description="Real stories from real brokerages that transformed their operations with PropFlow."
+      serifTitle
+      title={
+        <>
+          Brokers who made
+          <br />
+          <span className="text-fg-tertiary">the switch.</span>
+        </>
+      }
+      description="Real stories from brokerages that transformed their day-to-day with PropFlow."
+      mesh="soft"
+      containerClass="max-w-none"
     >
-      <div className="relative mx-auto max-w-3xl">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={current}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="border-border bg-surface relative rounded-2xl border p-8 shadow-sm sm:p-12"
+      <div className="space-y-6">
+        {/* Row A — scrolls right */}
+        <div
+          className="marquee-container overflow-hidden"
+          style={{
+            maskImage:
+              "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
+          }}
+        >
+          <div
+            className="marquee-track animate-marquee-right flex w-fit gap-5"
+            style={{ ["--animate-duration" as string]: "60s" }}
           >
-            <Quote className="text-brand-500/10 absolute top-8 right-8 h-12 w-12" />
-
-            {/* Stars */}
-            <div className="mb-6 flex gap-1">
-              {Array.from({ length: testimonial.rating }).map((_, i) => (
-                <Star key={i} className="fill-warning text-warning h-4 w-4" />
-              ))}
-            </div>
-
-            <blockquote className="text-fg-secondary text-base leading-relaxed sm:text-lg">
-              &ldquo;{testimonial.content}&rdquo;
-            </blockquote>
-
-            <div className="mt-8 flex items-center gap-4">
-              <div className="from-brand-500 to-brand-alt-500 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br text-sm font-bold text-white">
-                {testimonial.name
-                  .split(" ")
-                  .map((n) => n[0])
-                  .join("")}
-              </div>
-              <div>
-                <p className="text-fg text-sm font-semibold">{testimonial.name}</p>
-                <p className="text-fg-muted text-xs">
-                  {testimonial.role}, {testimonial.company}
-                </p>
-              </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Controls */}
-        <div className="mt-8 flex items-center justify-center gap-4">
-          <button
-            onClick={prev}
-            className="border-border bg-surface text-fg-secondary hover:bg-surface-secondary hover:text-fg flex h-10 w-10 items-center justify-center rounded-xl border transition-colors"
-            aria-label="Previous testimonial"
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-
-          <div className="flex gap-2">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  setCurrent(index);
-                  setIsAutoPlaying(false);
-                }}
-                className={cn(
-                  "h-2 rounded-full transition-all duration-300",
-                  index === current
-                    ? "bg-brand-500 w-8"
-                    : "bg-surface-tertiary hover:bg-fg-muted w-2"
-                )}
-                aria-label={`Go to testimonial ${index + 1}`}
+            {rowA.map((t, i) => (
+              <TestimonialCard
+                key={`a-${i}-${t.id}`}
+                name={t.name}
+                role={t.role}
+                company={t.company}
+                content={t.content}
+                rating={t.rating}
               />
             ))}
           </div>
+        </div>
 
-          <button
-            onClick={next}
-            className="border-border bg-surface text-fg-secondary hover:bg-surface-secondary hover:text-fg flex h-10 w-10 items-center justify-center rounded-xl border transition-colors"
-            aria-label="Next testimonial"
+        {/* Row B — scrolls left */}
+        <div
+          className="marquee-container overflow-hidden"
+          style={{
+            maskImage:
+              "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
+          }}
+        >
+          <div
+            className="marquee-track animate-marquee-left flex w-fit gap-5"
+            style={{ ["--animate-duration" as string]: "55s" }}
           >
-            <ChevronRight className="h-4 w-4" />
-          </button>
+            {rowB.map((t, i) => (
+              <TestimonialCard
+                key={`b-${i}-${t.id}`}
+                name={t.name}
+                role={t.role}
+                company={t.company}
+                content={t.content}
+                rating={t.rating}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Aggregate proof row */}
+      <div className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-[color:var(--border)] bg-[color:var(--border)] sm:grid-cols-4">
+        <div className="bg-surface flex flex-col items-center px-6 py-7 text-center">
+          <span className="text-fg font-display text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">
+            1.8k+
+          </span>
+          <span className="text-fg-tertiary mt-2 text-xs tracking-wide sm:text-sm">
+            Active brokers
+          </span>
+        </div>
+        <div className="bg-surface flex flex-col items-center px-6 py-7 text-center">
+          <span className="text-fg font-display text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">
+            4.9
+            <span className="text-fg-tertiary ml-0.5 text-2xl font-normal">
+              /5
+            </span>
+          </span>
+          <span className="text-fg-tertiary mt-2 text-xs tracking-wide sm:text-sm">
+            Average rating
+          </span>
+        </div>
+        <div className="bg-surface flex flex-col items-center px-6 py-7 text-center">
+          <span className="text-fg font-display text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">
+            22
+          </span>
+          <span className="text-fg-tertiary mt-2 text-xs tracking-wide sm:text-sm">
+            Indian cities
+          </span>
+        </div>
+        <div className="bg-surface flex flex-col items-center px-6 py-7 text-center">
+          <span className="text-fg font-display text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">
+            3×
+          </span>
+          <span className="text-fg-tertiary mt-2 text-xs tracking-wide sm:text-sm">
+            More deals closed
+          </span>
         </div>
       </div>
     </SectionWrapper>

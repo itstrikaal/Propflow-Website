@@ -1,5 +1,8 @@
 import { CTASection } from "@/components/sections/cta";
 import { createMetadata } from "@/lib/metadata";
+import { MeshBackground } from "@/components/shared/mesh-background";
+import { JsonLd } from "@/components/shared/json-ld";
+import { breadcrumbSchema, webPageSchema } from "@/lib/schema";
 import { Bug, Sparkles, ArrowUp } from "lucide-react";
 
 export const metadata = createMetadata({
@@ -16,7 +19,7 @@ const changes = [
     items: [
       {
         type: "feature" as const,
-        text: "AI Lead Scoring — automatic priority scoring for every lead based on WhatsApp conversations.",
+        text: "AI lead scoring — automatic priority scoring for every lead based on WhatsApp conversations.",
       },
       {
         type: "feature" as const,
@@ -24,7 +27,7 @@ const changes = [
       },
       {
         type: "improvement" as const,
-        text: "20x faster document loading in property packages.",
+        text: "20× faster document loading in property packages.",
       },
       { type: "fix" as const, text: "Fixed contact sync issue with Google Contacts." },
     ],
@@ -115,37 +118,57 @@ const changes = [
 const typeConfig = {
   feature: {
     icon: Sparkles,
-    label: "New Feature",
-    color: "text-brand-500 bg-brand-500/10",
+    label: "New feature",
+    color: "text-fg",
+    bg: "bg-fg/10",
   },
   improvement: {
     icon: ArrowUp,
     label: "Improvement",
-    color: "text-brand-alt-500 bg-brand-alt-500/10",
+    color: "text-accent-700",
+    bg: "bg-accent-50 dark:bg-accent-900/20 dark:text-accent-300",
   },
-  fix: { icon: Bug, label: "Bug Fix", color: "text-success bg-success-bg" },
+  fix: { icon: Bug, label: "Bug fix", color: "text-success", bg: "bg-success-bg" },
 };
 
 export default function ChangelogPage() {
   return (
     <>
-      <section className="section-padding bg-bg">
-        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+      <JsonLd
+        id="ld-changelog-page"
+        schema={[
+          webPageSchema({
+            title: "PropFlow Changelog",
+            description: "Every update to PropFlow, documented.",
+            path: "/changelog",
+          }),
+          breadcrumbSchema([{ label: "Home", href: "/" }, { label: "Changelog", href: "/changelog" }]),
+        ]}
+      />
+
+      <section
+        className="relative overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-20"
+        aria-label="Changelog"
+      >
+        <MeshBackground variant="hero" grain />
+        <div className="relative mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
           <span className="section-label">Changelog</span>
-          <h1 className="section-title">What&apos;s new at PropFlow.</h1>
+          <h1 className="font-display section-title">What&apos;s new at PropFlow.</h1>
           <p className="section-sub mx-auto max-w-2xl">
             We ship every month. Here&apos;s everything we&apos;ve been working on.
           </p>
         </div>
       </section>
 
-      <section className="section-padding bg-surface">
+      <section className="section-padding bg-bg">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <div className="space-y-12">
+          <div className="space-y-14">
             {changes.map((release) => (
               <div key={release.version}>
-                <div className="mb-4 flex items-baseline gap-3">
-                  <h2 className="text-fg text-lg font-bold">{release.version}</h2>
+                <div className="mb-5 flex items-baseline gap-3 border-b border-[color:var(--border)] pb-3">
+                  <h2 className="font-display text-fg text-lg font-semibold tracking-[-0.022em]">
+                    {release.version}
+                  </h2>
                   <span className="text-fg-muted text-sm">{release.date}</span>
                 </div>
                 <div className="space-y-3">
@@ -155,20 +178,22 @@ export default function ChangelogPage() {
                     return (
                       <div
                         key={i}
-                        className="border-border bg-bg flex gap-3 rounded-xl border p-4"
+                        className="border-border bg-surface hover:border-fg/15 flex gap-3 rounded-2xl border p-4 transition-all duration-300 sm:p-5"
                       >
                         <div
-                          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${config.color}`}
+                          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${config.bg}`}
                         >
-                          <Icon className="h-4 w-4" />
+                          <Icon className={`h-4 w-4 ${config.color}`} />
                         </div>
                         <div className="flex-1">
                           <span
-                            className={`text-[10px] font-semibold tracking-wider uppercase ${config.color.split(" ")[0]}`}
+                            className={`text-[10px] font-semibold tracking-wider uppercase ${config.color}`}
                           >
                             {config.label}
                           </span>
-                          <p className="text-fg-secondary mt-0.5 text-sm">{item.text}</p>
+                          <p className="text-fg-secondary mt-1 text-sm leading-relaxed">
+                            {item.text}
+                          </p>
                         </div>
                       </div>
                     );

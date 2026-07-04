@@ -1,4 +1,5 @@
 import { createMetadata } from "@/lib/metadata";
+import { MeshBackground } from "@/components/shared/mesh-background";
 
 export const metadata = createMetadata({
   title: "Privacy Policy",
@@ -9,16 +10,26 @@ export const metadata = createMetadata({
 
 export default function PrivacyPage() {
   return (
-    <section className="section-padding bg-bg">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <span className="section-label">Legal</span>
-        <h1 className="section-title mt-2">Privacy Policy</h1>
-        <p className="section-sub">Last updated: June 15, 2026</p>
+    <>
+      <section
+        className="relative overflow-hidden pt-32 pb-12 sm:pt-40 sm:pb-16"
+        aria-label="Privacy Policy"
+      >
+        <MeshBackground variant="hero" grain />
+        <div className="relative mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+          <span className="section-label">Legal</span>
+          <h1 className="font-display section-title">Privacy Policy</h1>
+          <p className="section-sub">Last updated: June 15, 2026</p>
+        </div>
+      </section>
 
-        <div className="text-fg-secondary mt-10 space-y-8 text-sm leading-relaxed">
+      <section className="section-padding bg-bg">
+        <div className="text-fg-secondary mx-auto max-w-3xl space-y-10 px-4 text-sm leading-relaxed sm:px-6 lg:px-8">
           <section>
-            <h2 className="text-fg text-lg font-semibold">1. Introduction</h2>
-            <p className="mt-2">
+            <h2 className="font-display text-fg text-lg font-semibold tracking-[-0.022em]">
+              1. Introduction
+            </h2>
+            <p className="mt-3">
               PropFlow (&ldquo;we,&rdquo; &ldquo;our,&rdquo; or &ldquo;us&rdquo;) is
               committed to protecting your privacy. This Privacy Policy explains how we
               collect, use, disclose, and safeguard your information when you use our
@@ -27,11 +38,11 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-fg text-lg font-semibold">2. Information We Collect</h2>
-            <p className="mt-2">
-              We collect information that you provide directly to us:
-            </p>
-            <ul className="mt-2 list-disc space-y-1 pl-5">
+            <h2 className="font-display text-fg text-lg font-semibold tracking-[-0.022em]">
+              2. Information we collect
+            </h2>
+            <p className="mt-3">We collect information that you provide directly to us:</p>
+            <ul className="mt-3 ml-5 list-disc space-y-1.5">
               <li>
                 Account information: name, email address, phone number, company name
               </li>
@@ -49,11 +60,11 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-fg text-lg font-semibold">
-              3. How We Use Your Information
+            <h2 className="font-display text-fg text-lg font-semibold tracking-[-0.022em]">
+              3. How we use your information
             </h2>
-            <p className="mt-2">We use the information we collect to:</p>
-            <ul className="mt-2 list-disc space-y-1 pl-5">
+            <p className="mt-3">We use the information we collect to:</p>
+            <ul className="mt-3 ml-5 list-disc space-y-1.5">
               <li>Provide, maintain, and improve our platform</li>
               <li>Process transactions and send related information</li>
               <li>
@@ -66,10 +77,10 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-fg text-lg font-semibold">
-              4. Data Storage and Security
+            <h2 className="font-display text-fg text-lg font-semibold tracking-[-0.022em]">
+              4. Data storage and security
             </h2>
-            <p className="mt-2">
+            <p className="mt-3">
               Your data is stored on secure servers located in India (AWS Mumbai and
               Bangalore regions). We implement industry-standard security measures
               including encryption in transit (TLS 1.3) and at rest (AES-256), regular
@@ -78,8 +89,10 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-fg text-lg font-semibold">5. Data Retention</h2>
-            <p className="mt-2">
+            <h2 className="font-display text-fg text-lg font-semibold tracking-[-0.022em]">
+              5. Data retention
+            </h2>
+            <p className="mt-3">
               We retain your information for as long as your account is active or as
               needed to provide you services. You can request deletion of your data at any
               time by contacting us. Upon account deletion, all data is permanently
@@ -88,11 +101,13 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-fg text-lg font-semibold">6. Your Rights</h2>
-            <p className="mt-2">
+            <h2 className="font-display text-fg text-lg font-semibold tracking-[-0.022em]">
+              6. Your rights
+            </h2>
+            <p className="mt-3">
               Under Indian data protection law, you have the right to:
             </p>
-            <ul className="mt-2 list-disc space-y-1 pl-5">
+            <ul className="mt-3 ml-5 list-disc space-y-1.5">
               <li>Access your personal data</li>
               <li>Correct inaccurate data</li>
               <li>Request deletion of your data</li>
@@ -103,8 +118,10 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-fg text-lg font-semibold">7. Contact Us</h2>
-            <p className="mt-2">
+            <h2 className="font-display text-fg text-lg font-semibold tracking-[-0.022em]">
+              7. Contact us
+            </h2>
+            <p className="mt-3">
               If you have questions about this Privacy Policy, please contact us at:
               <br />
               Email: privacy@propflow.in
@@ -113,7 +130,7 @@ export default function PrivacyPage() {
             </p>
           </section>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

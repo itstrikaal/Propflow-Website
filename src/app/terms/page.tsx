@@ -1,4 +1,5 @@
 import { createMetadata } from "@/lib/metadata";
+import { MeshBackground } from "@/components/shared/mesh-background";
 
 export const metadata = createMetadata({
   title: "Terms of Service",
@@ -10,16 +11,26 @@ export const metadata = createMetadata({
 
 export default function TermsPage() {
   return (
-    <section className="section-padding bg-bg">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <span className="section-label">Legal</span>
-        <h1 className="section-title mt-2">Terms of Service</h1>
-        <p className="section-sub">Last updated: June 15, 2026</p>
+    <>
+      <section
+        className="relative overflow-hidden pt-32 pb-12 sm:pt-40 sm:pb-16"
+        aria-label="Terms of Service"
+      >
+        <MeshBackground variant="hero" grain />
+        <div className="relative mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+          <span className="section-label">Legal</span>
+          <h1 className="font-display section-title">Terms of Service</h1>
+          <p className="section-sub">Last updated: June 15, 2026</p>
+        </div>
+      </section>
 
-        <div className="text-fg-secondary mt-10 space-y-8 text-sm leading-relaxed">
+      <section className="section-padding bg-bg">
+        <div className="text-fg-secondary mx-auto max-w-3xl space-y-10 px-4 text-sm leading-relaxed sm:px-6 lg:px-8">
           <section>
-            <h2 className="text-fg text-lg font-semibold">1. Acceptance of Terms</h2>
-            <p className="mt-2">
+            <h2 className="font-display text-fg text-lg font-semibold tracking-[-0.022em]">
+              1. Acceptance of terms
+            </h2>
+            <p className="mt-3">
               By accessing or using PropFlow (&ldquo;the Platform&rdquo;), you agree to be
               bound by these Terms of Service. If you do not agree, please do not use the
               Platform.
@@ -27,8 +38,10 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="text-fg text-lg font-semibold">2. Description of Service</h2>
-            <p className="mt-2">
+            <h2 className="font-display text-fg text-lg font-semibold tracking-[-0.022em]">
+              2. Description of service
+            </h2>
+            <p className="mt-3">
               PropFlow provides a property management platform designed for Indian real
               estate professionals. The Platform includes tools for lead management,
               property listing, document management, WhatsApp integration, analytics, and
@@ -37,9 +50,11 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="text-fg text-lg font-semibold">3. User Accounts</h2>
-            <p className="mt-2">You are responsible for:</p>
-            <ul className="mt-2 list-disc space-y-1 pl-5">
+            <h2 className="font-display text-fg text-lg font-semibold tracking-[-0.022em]">
+              3. User accounts
+            </h2>
+            <p className="mt-3">You are responsible for:</p>
+            <ul className="mt-3 ml-5 list-disc space-y-1.5">
               <li>Maintaining the confidentiality of your account credentials</li>
               <li>All activities that occur under your account</li>
               <li>Notifying us immediately of any unauthorised use</li>
@@ -48,9 +63,11 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="text-fg text-lg font-semibold">4. Acceptable Use</h2>
-            <p className="mt-2">You agree not to:</p>
-            <ul className="mt-2 list-disc space-y-1 pl-5">
+            <h2 className="font-display text-fg text-lg font-semibold tracking-[-0.022em]">
+              4. Acceptable use
+            </h2>
+            <p className="mt-3">You agree not to:</p>
+            <ul className="mt-3 ml-5 list-disc space-y-1.5">
               <li>Use the Platform for any unlawful purpose</li>
               <li>Violate any applicable laws or regulations</li>
               <li>Infringe upon the rights of others</li>
@@ -61,8 +78,10 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="text-fg text-lg font-semibold">5. Payment and Billing</h2>
-            <p className="mt-2">
+            <h2 className="font-display text-fg text-lg font-semibold tracking-[-0.022em]">
+              5. Payment and billing
+            </h2>
+            <p className="mt-3">
               Paid plans are billed in advance on a monthly or annual basis. All prices
               are in Indian Rupees (INR) plus applicable taxes. You can cancel your
               subscription at any time. Upon cancellation, you retain access until the end
@@ -71,8 +90,10 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="text-fg text-lg font-semibold">6. Limitation of Liability</h2>
-            <p className="mt-2">
+            <h2 className="font-display text-fg text-lg font-semibold tracking-[-0.022em]">
+              6. Limitation of liability
+            </h2>
+            <p className="mt-3">
               PropFlow is provided &ldquo;as is&rdquo; without warranty of any kind. We
               shall not be liable for any indirect, incidental, special, consequential, or
               punitive damages arising from your use of the Platform.
@@ -80,8 +101,10 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="text-fg text-lg font-semibold">7. Changes to Terms</h2>
-            <p className="mt-2">
+            <h2 className="font-display text-fg text-lg font-semibold tracking-[-0.022em]">
+              7. Changes to terms
+            </h2>
+            <p className="mt-3">
               We reserve the right to modify these terms at any time. We will notify users
               of material changes via email or through the Platform. Continued use after
               changes constitutes acceptance of the new terms.
@@ -89,16 +112,20 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="text-fg text-lg font-semibold">8. Governing Law</h2>
-            <p className="mt-2">
+            <h2 className="font-display text-fg text-lg font-semibold tracking-[-0.022em]">
+              8. Governing law
+            </h2>
+            <p className="mt-3">
               These terms shall be governed by the laws of India. Any disputes shall be
               subject to the jurisdiction of courts in Pune, Maharashtra.
             </p>
           </section>
 
           <section>
-            <h2 className="text-fg text-lg font-semibold">9. Contact</h2>
-            <p className="mt-2">
+            <h2 className="font-display text-fg text-lg font-semibold tracking-[-0.022em]">
+              9. Contact
+            </h2>
+            <p className="mt-3">
               For questions about these terms, contact us at:
               <br />
               Email: legal@propflow.in
@@ -107,7 +134,7 @@ export default function TermsPage() {
             </p>
           </section>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

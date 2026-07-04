@@ -8,8 +8,8 @@ export default function Loading() {
       role="status"
     >
       <div className="flex flex-col items-center gap-3">
-        <Loader2 className="text-brand-500 h-8 w-8 animate-spin" aria-hidden="true" />
-        <p className="text-fg-muted text-sm">Loading…</p>
+        <Loader2 className="text-fg h-8 w-8 animate-spin" aria-hidden="true" />
+        <p className="text-fg-muted text-xs tracking-widest uppercase">Loading</p>
       </div>
     </div>
   );

@@ -30,7 +30,9 @@ export interface Testimonial {
   name: string;
   role: string;
   company: string;
-  avatar: string;
+  // Optional — testimonials.tsx renders initials by default; avatar is only
+  // used if the testimonial needs a photo in the future.
+  avatar?: string;
   content: string;
   rating: number;
 }

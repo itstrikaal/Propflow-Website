@@ -14,7 +14,10 @@ export const siteConfig = {
   description:
     "PropFlow is an AI-powered platform that transforms how Indian property brokers manage leads, properties, documents, and deals — all from one place.",
   url: "https://propflow.in",
-  ogImage: "/images/og.png",
+  // Route to the dynamically-generated OG image (src/app/opengraph-image.tsx).
+  // This is preferred over a static /images/og.png because Next.js produces
+  // a proper 1200x630 PNG branded for PropFlow at build time.
+  ogImage: "/opengraph-image",
   email: "hello@propflow.in",
   twitter: "@propflow",
   brandColor: "#2563eb",
@@ -280,7 +283,6 @@ export const testimonials: Testimonial[] = [
     name: "Rajesh Mehta",
     role: "Independent Property Broker",
     company: "Mehta Realty",
-    avatar: "/images/avatars/avatar-1.jpg",
     content:
       "I was managing everything on WhatsApp and Gallery. I'd lose track of which client saw which property. PropFlow changed everything. Now every lead, every photo, every follow-up is in one place. I close 3x more deals.",
     rating: 5,
@@ -290,7 +292,6 @@ export const testimonials: Testimonial[] = [
     name: "Priya Sharma",
     role: "Managing Director",
     company: "Sharma Properties & Consultants",
-    avatar: "/images/avatars/avatar-2.jpg",
     content:
       "We have 12 agents in our agency. Before PropFlow, coordinating between them was chaos. Now everyone sees the same pipeline, the same property data, the same client history. Our team efficiency has doubled.",
     rating: 5,
@@ -300,7 +301,6 @@ export const testimonials: Testimonial[] = [
     name: "Amit Patel",
     role: "Real Estate Consultant",
     company: "Patel & Sons Realty",
-    avatar: "/images/avatars/avatar-3.jpg",
     content:
       "The document management alone is worth the price. I used to spend hours finding and sending Aadhaar copies, sale deeds, and RERA docs. Now I generate a complete property package in 2 clicks.",
     rating: 5,
@@ -310,7 +310,6 @@ export const testimonials: Testimonial[] = [
     name: "Sneha Reddy",
     role: "Sales Head",
     company: "Reddy Builders & Developers",
-    avatar: "/images/avatars/avatar-4.jpg",
     content:
       "We evaluated 6 different CRMs. PropFlow was the only one that understood how Indian real estate actually works. The WhatsApp integration is a game-changer. Our sales cycle dropped from 45 days to 18 days.",
     rating: 5,

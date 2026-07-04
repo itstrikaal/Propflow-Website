@@ -9,8 +9,8 @@ export default function BlogLoading() {
           <div className="bg-surface-tertiary mx-auto mt-6 h-10 w-2/3 animate-pulse rounded-lg" />
           <div className="bg-surface-tertiary mx-auto mt-4 h-4 w-1/2 animate-pulse rounded" />
         </div>
-        <div className="mt-16 grid gap-8 sm:grid-cols-2">
-          {Array.from({ length: 4 }).map((_, i) => (
+        <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, i) => (
             <Card key={i} className="p-6 sm:p-8">
               <div className="flex items-center gap-3">
                 <div className="bg-surface-tertiary h-5 w-16 animate-pulse rounded-full" />

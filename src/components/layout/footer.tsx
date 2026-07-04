@@ -7,133 +7,109 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-border bg-bg-secondary border-t" role="contentinfo">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        {/* Live status pill — only on lg+ so it doesn't crowd mobile */}
-        <div className="mb-10 flex justify-center lg:justify-start">
+    <footer
+      className="border-border bg-surface-secondary relative border-t"
+      role="contentinfo"
+    >
+      <div className="mesh-section-soft" aria-hidden="true" />
+
+      <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        {/* Live status pill */}
+        <div className="mb-12 flex justify-center lg:justify-start">
           <StatusIndicator />
         </div>
+
         {/* Main Footer Grid */}
-        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
           {/* Brand Column */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-5">
             <Link
               href="/"
-              className="flex items-center gap-2.5 text-lg font-bold tracking-tight"
+              className="group inline-flex items-center gap-2.5 text-base font-semibold tracking-[-0.02em]"
               aria-label={`${siteConfig.name} Home`}
             >
-              <div className="from-brand-500 to-brand-alt-500 flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br">
-                <span className="text-sm font-bold text-white">P</span>
-              </div>
+              <span className="from-fg to-fg-secondary relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br shadow-sm">
+                <span className="text-sm font-bold text-bg">P</span>
+              </span>
               {siteConfig.name}
             </Link>
-            <p className="text-fg-tertiary mt-4 max-w-sm text-sm leading-relaxed">
+            <p className="text-fg-tertiary mt-5 max-w-sm text-sm leading-relaxed">
               {siteConfig.description}
             </p>
-            <p className="text-fg-muted mt-4 text-xs font-medium tracking-widest uppercase">
-              Made in India, for India
+            <p className="text-fg-muted mt-4 text-[11px] font-medium tracking-[0.18em] uppercase">
+              Made in India · For India · Since {siteConfig.since}
             </p>
           </div>
 
           {/* Link Columns */}
-          <div>
-            <h3 className="text-fg mb-4 text-sm font-semibold">Product</h3>
+          <div className="lg:col-span-2">
+            <h3 className="text-fg mb-5 text-xs font-semibold tracking-widest uppercase">
+              Product
+            </h3>
             <ul className="space-y-3">
               {footerLinks.product.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-fg-tertiary hover:text-fg text-sm transition-colors"
+                    className="group text-fg-tertiary hover:text-fg inline-flex items-center gap-1 text-sm transition-colors"
                   >
                     {link.label}
+                    <ArrowUpRight className="h-3 w-3 -translate-x-0.5 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-60" />
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div>
-            <h3 className="text-fg mb-4 text-sm font-semibold">Company</h3>
+          <div className="lg:col-span-2">
+            <h3 className="text-fg mb-5 text-xs font-semibold tracking-widest uppercase">
+              Company
+            </h3>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-fg-tertiary hover:text-fg text-sm transition-colors"
+                    className="group text-fg-tertiary hover:text-fg inline-flex items-center gap-1 text-sm transition-colors"
                   >
                     {link.label}
+                    <ArrowUpRight className="h-3 w-3 -translate-x-0.5 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-60" />
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div>
-            <h3 className="text-fg mb-4 text-sm font-semibold">Compare</h3>
+          <div className="lg:col-span-3">
+            <h3 className="text-fg mb-5 text-xs font-semibold tracking-widest uppercase">
+              Compare
+            </h3>
             <ul className="space-y-3">
               <li>
                 <Link
                   href="/compare/whatsapp"
-                  className="text-fg-tertiary hover:text-fg inline-flex items-center gap-1 text-sm transition-colors"
+                  className="group text-fg-tertiary hover:text-fg inline-flex items-center gap-1 text-sm transition-colors"
                 >
                   vs WhatsApp + Gallery
-                  <ArrowUpRight className="h-3 w-3" />
+                  <ArrowUpRight className="h-3 w-3 -translate-x-0.5 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-60" />
                 </Link>
               </li>
               <li>
                 <Link
                   href="/compare/excel"
-                  className="text-fg-tertiary hover:text-fg inline-flex items-center gap-1 text-sm transition-colors"
+                  className="group text-fg-tertiary hover:text-fg inline-flex items-center gap-1 text-sm transition-colors"
                 >
                   vs Excel / Sheets
-                  <ArrowUpRight className="h-3 w-3" />
+                  <ArrowUpRight className="h-3 w-3 -translate-x-0.5 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-60" />
                 </Link>
               </li>
               <li>
                 <Link
                   href="/compare/crm"
-                  className="text-fg-tertiary hover:text-fg inline-flex items-center gap-1 text-sm transition-colors"
+                  className="group text-fg-tertiary hover:text-fg inline-flex items-center gap-1 text-sm transition-colors"
                 >
                   vs Traditional CRM
-                  <ArrowUpRight className="h-3 w-3" />
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-fg mb-4 text-sm font-semibold">Resources</h3>
-            <ul className="space-y-3">
-              <li>
-                <Link
-                  href="/blog"
-                  className="text-fg-tertiary hover:text-fg text-sm transition-colors"
-                >
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/security"
-                  className="text-fg-tertiary hover:text-fg text-sm transition-colors"
-                >
-                  Security
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/roadmap"
-                  className="text-fg-tertiary hover:text-fg text-sm transition-colors"
-                >
-                  Roadmap
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="text-fg-tertiary hover:text-fg text-sm transition-colors"
-                >
-                  Contact
+                  <ArrowUpRight className="h-3 w-3 -translate-x-0.5 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-60" />
                 </Link>
               </li>
             </ul>
@@ -148,21 +124,21 @@ export function Footer() {
           <div className="flex gap-6">
             <Link
               href="/privacy"
-              className="text-fg-muted hover:text-fg text-xs transition-colors"
+              className="text-fg-muted hover:text-fg text-xs underline-offset-4 transition-colors hover:underline"
             >
-              Privacy Policy
+              Privacy
             </Link>
             <Link
               href="/terms"
-              className="text-fg-muted hover:text-fg text-xs transition-colors"
+              className="text-fg-muted hover:text-fg text-xs underline-offset-4 transition-colors hover:underline"
             >
-              Terms of Service
+              Terms
             </Link>
             <Link
               href="/cookies"
-              className="text-fg-muted hover:text-fg text-xs transition-colors"
+              className="text-fg-muted hover:text-fg text-xs underline-offset-4 transition-colors hover:underline"
             >
-              Cookie Policy
+              Cookies
             </Link>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { Shield, Lock, CheckCircle2, Server } from "lucide-react";
+import { Shield, Lock, Server, CheckCircle2 } from "lucide-react";
 import { trustSignals } from "@/lib/constants";
 
 const badges = [
@@ -30,38 +30,45 @@ export function SecurityBadgesSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <span className="section-label">Security & Compliance</span>
-          <h2 className="section-title">Built on a foundation of trust.</h2>
+          <h2 className="section-title font-display">Built on a foundation of trust.</h2>
           <p className="section-sub">
             Your data — your leads, your documents, your commissions — is the most
             sensitive thing on our servers. We treat it that way.
           </p>
         </div>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+
+        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {badges.map((b) => (
-            <div
+            <article
               key={b.title}
-              className="border-border bg-surface hover:border-brand-500/40 rounded-2xl border p-6 transition-colors"
+              className="group border-border bg-surface hover:border-fg/20 relative overflow-hidden rounded-2xl border p-6 transition-all duration-300 hover:shadow-md"
             >
-              <div className="bg-brand-500/10 text-brand-500 flex h-10 w-10 items-center justify-center rounded-xl">
-                <b.icon className="h-5 w-5" aria-hidden="true" />
+              <div className="from-fg/[0.03] pointer-events-none absolute inset-0 bg-gradient-to-br to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              <div className="border-border bg-surface-secondary flex h-11 w-11 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-105">
+                <b.icon className="text-fg h-5 w-5" aria-hidden="true" />
               </div>
-              <h3 className="text-fg mt-4 text-sm font-semibold">{b.title}</h3>
-              <p className="text-fg-tertiary mt-2 text-sm leading-relaxed">{b.desc}</p>
-            </div>
+              <h3 className="text-fg mt-5 text-base font-semibold tracking-[-0.018em]">
+                {b.title}
+              </h3>
+              <p className="text-fg-tertiary mt-2 text-sm leading-relaxed">
+                {b.desc}
+              </p>
+            </article>
           ))}
         </div>
-        <p className="text-fg-muted mt-8 text-center text-xs">
+
+        <p className="text-fg-muted mt-10 text-center text-xs">
           Want the full security architecture? Read the{" "}
           <a
             href="/security"
-            className="text-brand-500 underline-offset-2 hover:underline"
+            className="text-fg underline-offset-4 transition-opacity hover:opacity-70"
           >
             security overview
           </a>{" "}
           or request our{" "}
           <a
             href="/contact"
-            className="text-brand-500 underline-offset-2 hover:underline"
+            className="text-fg underline-offset-4 transition-opacity hover:opacity-70"
           >
             SOC 2 readiness packet
           </a>

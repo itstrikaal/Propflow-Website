@@ -104,10 +104,12 @@ export function CookieConsent() {
       aria-modal="false"
       aria-label="Cookie consent"
       aria-describedby="cookie-consent-desc"
-      className="border-border bg-surface/95 fixed right-4 bottom-4 left-4 z-50 mx-auto max-w-md rounded-2xl border p-4 shadow-2xl backdrop-blur-xl sm:right-6 sm:bottom-6 sm:left-auto"
+      className="glass border-border fixed right-4 bottom-4 left-4 z-50 mx-auto max-w-md rounded-2xl border p-4 shadow-2xl sm:right-6 sm:bottom-6 sm:left-auto"
     >
       <div className="flex items-start gap-3">
-        <Cookie className="text-brand-500 mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
+        <div className="border-border bg-surface-secondary flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border">
+          <Cookie className="text-fg h-4 w-4" aria-hidden="true" />
+        </div>
         <div className="flex-1">
           <p className="text-fg text-sm font-semibold">Cookies on PropFlow</p>
           <p
@@ -122,23 +124,24 @@ export function CookieConsent() {
           {expanded && (
             <ul className="text-fg-secondary mt-3 space-y-1.5 text-xs">
               <li className="flex items-start gap-2">
-                <span className="bg-brand-500 mt-1 inline-block h-1.5 w-1.5 shrink-0 rounded-full" />
+                <span className="bg-fg mt-1 inline-block h-1.5 w-1.5 shrink-0 rounded-full" />
                 <span>
-                  <strong>Essential</strong> — sign-in, theme preference, security. Always
-                  on.
+                  <strong className="text-fg font-semibold">Essential</strong> — sign-in,
+                  theme preference, security. Always on.
                 </span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="bg-brand-500 mt-1 inline-block h-1.5 w-1.5 shrink-0 rounded-full" />
+                <span className="bg-fg mt-1 inline-block h-1.5 w-1.5 shrink-0 rounded-full" />
                 <span>
-                  <strong>Analytics</strong> — anonymised page views to help us improve.
+                  <strong className="text-fg font-semibold">Analytics</strong> — anonymised
+                  page views to help us improve.
                 </span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="bg-brand-500 mt-1 inline-block h-1.5 w-1.5 shrink-0 rounded-full" />
+                <span className="bg-fg mt-1 inline-block h-1.5 w-1.5 shrink-0 rounded-full" />
                 <span>
-                  <strong>Marketing</strong> — only if you accept; lets us measure
-                  campaigns.
+                  <strong className="text-fg font-semibold">Marketing</strong> — only if
+                  you accept; lets us measure campaigns.
                 </span>
               </li>
             </ul>
@@ -147,7 +150,7 @@ export function CookieConsent() {
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <Button
               type="button"
-              variant="gradient"
+              variant="default"
               size="sm"
               onClick={() => decide("accepted")}
             >

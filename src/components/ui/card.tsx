@@ -6,7 +6,7 @@ const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElemen
     <div
       ref={ref}
       className={cn(
-        "border-border bg-surface rounded-2xl border shadow-sm transition-all duration-200",
+        "border-border bg-surface rounded-2xl border shadow-xs transition-all duration-300",
         className
       )}
       {...props}
@@ -30,7 +30,10 @@ const CardTitle = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivE
   ({ className, ...props }, ref) => (
     <h3
       ref={ref}
-      className={cn("text-lg leading-tight font-semibold tracking-tight", className)}
+      className={cn(
+        "text-fg text-lg leading-tight font-semibold tracking-[-0.018em]",
+        className
+      )}
       {...props}
     />
   )
@@ -41,7 +44,7 @@ const CardDescription = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <p ref={ref} className={cn("text-fg-tertiary text-sm", className)} {...props} />
+  <p ref={ref} className={cn("text-fg-tertiary text-sm leading-relaxed", className)} {...props} />
 ));
 CardDescription.displayName = "CardDescription";
 
@@ -60,4 +63,51 @@ const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
 );
 CardFooter.displayName = "CardFooter";
 
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent };
+/**
+ * Premium elevated card — used for hero cards inside bento grids / feature
+ * showcases. Has a stronger border + shadow than the default Card.
+ */
+const CardElevated = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      "border-border bg-surface rounded-3xl border shadow-md transition-all duration-300",
+      className
+    )}
+    {...props}
+  />
+));
+CardElevated.displayName = "CardElevated";
+
+/**
+ * Inverted (dark-on-light) card — used inside the bento grid for the hero
+ * cell. Switches to light-on-dark automatically in dark mode.
+ */
+const CardInverted = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      "bg-fg text-bg rounded-3xl shadow-md transition-all duration-300",
+      className
+    )}
+    {...props}
+  />
+));
+CardInverted.displayName = "CardInverted";
+
+export {
+  Card,
+  CardHeader,
+  CardFooter,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardElevated,
+  CardInverted,
+};

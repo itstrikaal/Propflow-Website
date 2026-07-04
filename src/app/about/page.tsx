@@ -1,7 +1,18 @@
 import { CTASection } from "@/components/sections/cta";
+import { MeshBackground } from "@/components/shared/mesh-background";
+import { JsonLd } from "@/components/shared/json-ld";
 import { createMetadata } from "@/lib/metadata";
+import { breadcrumbSchema, webPageSchema } from "@/lib/schema";
 import { companyStats, trustSignals } from "@/lib/constants";
-import { Building2, Target, Users, Shield, Heart, MapPin, Calendar } from "lucide-react";
+import {
+  Building2,
+  Target,
+  Users,
+  Shield,
+  Heart,
+  MapPin,
+  Calendar,
+} from "lucide-react";
 
 export const metadata = createMetadata({
   title: "About",
@@ -19,19 +30,19 @@ const values = [
   },
   {
     icon: Users,
-    title: "Broker-First",
+    title: "Broker-first",
     description:
       "We exist to make brokers successful. Every product decision starts with the question 'Does this help our users close more deals?'",
   },
   {
     icon: Shield,
-    title: "Trust & Security",
+    title: "Trust & security",
     description:
-      "Handling sensitive data like Aadhaar and property documents means security is our foundation. End-to-end encryption and Indian data centers.",
+      "Handling sensitive data like Aadhaar and property documents means security is our foundation. End-to-end encryption and Indian data centres.",
   },
   {
     icon: Heart,
-    title: "Customer Obsession",
+    title: "Customer obsession",
     description:
       "Our support team includes former brokers who understand your workflow. WhatsApp support in Hindi, Marathi, Gujarati, and English.",
   },
@@ -40,51 +51,79 @@ const values = [
 export default function AboutPage() {
   return (
     <>
+      <JsonLd
+        id="ld-about-page"
+        schema={[
+          webPageSchema({
+            title: "About PropFlow",
+            description:
+              "PropFlow is building the operating system for Indian real estate.",
+            path: "/about",
+            type: "AboutPage",
+          }),
+          breadcrumbSchema([{ label: "Home", href: "/" }, { label: "About", href: "/about" }]),
+        ]}
+      />
+
       {/* Hero */}
-      <section className="section-padding bg-bg">
-        <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+      <section
+        className="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-24"
+        aria-label="About PropFlow"
+      >
+        <MeshBackground variant="hero" grain />
+        <div className="relative mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <span className="section-label">About</span>
-          <h1 className="section-title">
-            We&apos;re building the OS for Indian real estate.
+          <h1 className="font-display section-title">
+            We&apos;re building the operating system
+            <br />
+            <span className="text-fg-tertiary">for Indian real estate.</span>
           </h1>
           <p className="section-sub mx-auto max-w-2xl">
-            PropFlow was founded in 2024 by engineers and real estate professionals who
-            experienced firsthand the chaos of managing a brokerage with disconnected
-            tools.
+            PropFlow was founded in {trustSignals.founded} by engineers and real estate
+            professionals who experienced firsthand the chaos of managing a brokerage
+            with disconnected tools.
           </p>
         </div>
       </section>
 
       {/* Mission */}
-      <section className="section-padding bg-surface">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <Building2 className="text-brand-500 mx-auto h-10 w-10" />
-            <h2 className="text-fg mt-6 text-2xl font-bold tracking-tight sm:text-3xl">
-              Our Mission
-            </h2>
-            <p className="text-fg-tertiary mt-4 text-base leading-relaxed sm:text-lg">
-              India has over 1 million property brokers, yet most run their business on
-              WhatsApp, Gallery, Google Drive, and their phone contacts. That&apos;s five
-              apps to manage one deal. We&apos;re building the single platform that brings
-              it all together — so brokers can focus on what matters: closing deals and
-              serving clients.
-            </p>
+      <section className="section-padding bg-bg">
+        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+          <div className="border-border bg-surface-secondary mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border">
+            <Building2 className="text-fg h-6 w-6" />
           </div>
+          <h2 className="font-display text-fg mt-6 text-2xl font-semibold tracking-[-0.025em] sm:text-3xl">
+            Our mission
+          </h2>
+          <p className="text-fg-tertiary mt-5 text-base leading-relaxed sm:text-lg">
+            India has over 1 million property brokers, yet most run their business on
+            WhatsApp, Gallery, Google Drive, and their phone contacts. That&apos;s five
+            apps to manage one deal. We&apos;re building the single platform that brings
+            it all together — so brokers can focus on what matters: closing deals and
+            serving clients.
+          </p>
         </div>
       </section>
 
       {/* Stats */}
-      <section className="section-padding bg-bg">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-8 sm:grid-cols-3">
+      <section className="section-padding bg-surface-secondary relative overflow-hidden">
+        <div className="mesh-section-soft" aria-hidden="true" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-px overflow-hidden rounded-3xl border border-[color:var(--border)] bg-[color:var(--border)] sm:grid-cols-3">
             {companyStats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <p className="text-brand-500 text-4xl font-bold sm:text-5xl">
+              <div
+                key={stat.label}
+                className="bg-surface flex flex-col items-center px-6 py-10 text-center"
+              >
+                <span className="text-fg font-display text-4xl font-semibold tracking-[-0.03em] sm:text-5xl">
                   {stat.value.toLocaleString("en-IN")}
-                  {stat.suffix ?? ""}
-                </p>
-                <p className="text-fg-muted mt-2 text-sm">{stat.label}</p>
+                  <span className="ml-0.5 text-fg-tertiary text-3xl font-normal">
+                    {stat.suffix ?? ""}
+                  </span>
+                </span>
+                <span className="text-fg-tertiary mt-3 text-sm tracking-wide">
+                  {stat.label}
+                </span>
               </div>
             ))}
           </div>
@@ -92,54 +131,54 @@ export default function AboutPage() {
       </section>
 
       {/* Trust strip */}
-      <section className="border-border bg-surface border-y">
-        <div className="mx-auto grid max-w-7xl gap-6 px-4 py-10 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
+      <section className="border-border border-y">
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
           <div className="flex items-start gap-3">
-            <MapPin
-              className="text-brand-500 mt-0.5 h-5 w-5 shrink-0"
-              aria-hidden="true"
-            />
+            <div className="border-border bg-surface-secondary flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border">
+              <MapPin className="text-fg h-5 w-5" aria-hidden="true" />
+            </div>
             <div>
               <p className="text-fg text-sm font-semibold">
                 Headquartered in {trustSignals.headquarters}
               </p>
-              <p className="text-fg-muted text-xs">
+              <p className="text-fg-muted mt-0.5 text-xs">
                 Data stored in {trustSignals.dataResidency}
               </p>
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <Shield
-              className="text-brand-500 mt-0.5 h-5 w-5 shrink-0"
-              aria-hidden="true"
-            />
+            <div className="border-border bg-surface-secondary flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border">
+              <Shield className="text-fg h-5 w-5" aria-hidden="true" />
+            </div>
             <div>
               <p className="text-fg text-sm font-semibold">{trustSignals.encryption}</p>
-              <p className="text-fg-muted text-xs">
+              <p className="text-fg-muted mt-0.5 text-xs">
                 {trustSignals.uptimeSLA} uptime SLA on Enterprise
               </p>
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <Calendar
-              className="text-brand-500 mt-0.5 h-5 w-5 shrink-0"
-              aria-hidden="true"
-            />
+            <div className="border-border bg-surface-secondary flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border">
+              <Calendar className="text-fg h-5 w-5" aria-hidden="true" />
+            </div>
             <div>
               <p className="text-fg text-sm font-semibold">
                 Founded {trustSignals.founded}
               </p>
-              <p className="text-fg-muted text-xs">Building in public since day one</p>
+              <p className="text-fg-muted mt-0.5 text-xs">
+                Building in public since day one
+              </p>
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <Heart
-              className="text-brand-500 mt-0.5 h-5 w-5 shrink-0"
-              aria-hidden="true"
-            />
+            <div className="border-border bg-surface-secondary flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border">
+              <Heart className="text-fg h-5 w-5" aria-hidden="true" />
+            </div>
             <div>
-              <p className="text-fg text-sm font-semibold">{trustSignals.supportHours}</p>
-              <p className="text-fg-muted text-xs">
+              <p className="text-fg text-sm font-semibold">
+                {trustSignals.supportHours}
+              </p>
+              <p className="text-fg-muted mt-0.5 text-xs">
                 Support via {trustSignals.support.join(", ")}
               </p>
             </div>
@@ -148,28 +187,33 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="section-padding bg-surface">
+      <section className="section-padding bg-bg">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-fg text-center text-2xl font-bold tracking-tight sm:text-3xl">
-            What We Believe
-          </h2>
-          <p className="section-sub mx-auto mt-4 max-w-2xl text-center">
-            These principles guide every decision we make.
-          </p>
-          <div className="mt-12 grid gap-8 sm:grid-cols-2">
+          <div className="mx-auto mb-12 max-w-2xl text-center lg:mb-16">
+            <span className="section-label">What we believe</span>
+            <h2 className="font-display section-title">Principles over everything.</h2>
+            <p className="section-sub">
+              These four principles guide every decision we make — from which features
+              we build to how we answer support tickets.
+            </p>
+          </div>
+          <div className="grid gap-5 sm:grid-cols-2">
             {values.map((value) => (
-              <div
+              <article
                 key={value.title}
-                className="border-border bg-bg rounded-2xl border p-8"
+                className="group border-border bg-surface hover:border-fg/20 relative overflow-hidden rounded-3xl border p-8 transition-all duration-500 hover:-translate-y-0.5 hover:shadow-lg"
               >
-                <div className="from-brand-500 to-brand-alt-500 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br shadow-sm">
-                  <value.icon className="h-6 w-6 text-white" />
+                <div className="from-fg/[0.03] pointer-events-none absolute inset-0 bg-gradient-to-br to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <div className="border-border bg-surface-secondary flex h-12 w-12 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-105">
+                  <value.icon className="text-fg h-5 w-5" />
                 </div>
-                <h3 className="text-fg mt-5 text-lg font-semibold">{value.title}</h3>
-                <p className="text-fg-tertiary mt-2 text-sm leading-relaxed">
+                <h3 className="text-fg mt-5 text-lg font-semibold tracking-[-0.02em]">
+                  {value.title}
+                </h3>
+                <p className="text-fg-tertiary mt-3 text-sm leading-relaxed">
                   {value.description}
                 </p>
-              </div>
+              </article>
             ))}
           </div>
         </div>

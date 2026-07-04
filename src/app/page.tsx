@@ -12,12 +12,18 @@ import { PricingSection } from "@/components/sections/pricing";
 import { FAQSection } from "@/components/sections/faq";
 import { CTASection } from "@/components/sections/cta";
 import { homeMetadata } from "@/lib/metadata";
+import { faqSchema } from "@/lib/schema";
+import { faqItems } from "@/lib/constants";
+import { JsonLd } from "@/components/shared/json-ld";
 
 export const metadata = homeMetadata;
 
 export default function HomePage() {
   return (
     <>
+      {/* FAQ structured data — mirrors the FAQSection rendered below. */}
+      <JsonLd id="ld-faq-home" schema={faqSchema(faqItems)} />
+
       <HeroSection />
       <PressMentionsSection />
       <TrustedBySection />

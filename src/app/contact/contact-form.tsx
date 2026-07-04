@@ -67,13 +67,13 @@ export function ContactForm() {
   if (state.kind === "success") {
     return (
       <div
-        className="bg-success-bg mt-8 flex flex-col items-center gap-3 rounded-xl p-8 text-center"
+        className="bg-success-bg mt-8 flex flex-col items-center gap-3 rounded-2xl p-8 text-center"
         role="status"
         aria-live="polite"
       >
         <CheckCircle className="text-success h-10 w-10" aria-hidden="true" />
         <h3 className="text-success text-lg font-semibold">Message sent!</h3>
-        <p className="text-success/80 max-w-md text-sm">
+        <p className="text-fg-tertiary max-w-md text-sm">
           We&apos;ll get back to you within 24 hours. For a faster response, WhatsApp us
           directly — we usually reply within minutes during business hours.
         </p>
@@ -112,7 +112,7 @@ export function ContactForm() {
       <div className="grid gap-5 sm:grid-cols-2">
         <Field
           id="name"
-          label="Full Name"
+          label="Full name"
           required
           error={errors.name?.message ?? fieldErrors.name}
         >
@@ -149,7 +149,7 @@ export function ContactForm() {
       <div className="grid gap-5 sm:grid-cols-2">
         <Field
           id="phone"
-          label="Phone Number"
+          label="Phone number"
           hint="Optional — for a faster WhatsApp reply"
           error={errors.phone?.message}
         >
@@ -202,7 +202,7 @@ export function ContactForm() {
 
       <p className="text-fg-muted text-xs">
         By submitting, you agree to our{" "}
-        <a href="/privacy" className="text-brand-500 underline-offset-2 hover:underline">
+        <a href="/privacy" className="text-fg underline underline-offset-4 hover:opacity-70">
           privacy policy
         </a>
         . We never share your details with third parties.
@@ -210,7 +210,7 @@ export function ContactForm() {
 
       <Button
         type="submit"
-        variant="gradient"
+        variant="default"
         size="lg"
         disabled={isSubmitting}
         className="w-full gap-2 sm:w-auto"
@@ -239,7 +239,7 @@ function inputCls(hasError: boolean) {
     "focus:ring-2 focus:outline-none",
     hasError
       ? "border-error focus:border-error focus:ring-error/20"
-      : "border-border focus:border-brand-500 focus:ring-brand-500/20"
+      : "border-border focus:border-fg focus:ring-fg/10"
   );
 }
 
