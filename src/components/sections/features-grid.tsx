@@ -2,14 +2,7 @@
 
 import { motion } from "framer-motion";
 import { SectionWrapper } from "@/components/shared/section-wrapper";
-import {
-  MessageCircle,
-  Brain,
-  FileText,
-  Zap,
-  BarChart3,
-  Share2,
-} from "lucide-react";
+import { MessageCircle, Brain, FileText, Zap, BarChart3, Share2 } from "lucide-react";
 import { features } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -61,10 +54,10 @@ export function FeaturesGridSection() {
             <motion.div
               key={feature.id}
               variants={itemVariants}
-              className="group relative overflow-hidden rounded-2xl border border-border/60 bg-surface p-6 transition-all duration-500 hover:border-brand-500/40 hover:shadow-xl hover:shadow-brand-500/10 hover:-translate-y-0.5"
+              className="group border-border/60 bg-surface hover:border-brand-500/40 hover:shadow-brand-500/10 relative overflow-hidden rounded-2xl border p-6 transition-all duration-500 hover:-translate-y-0.5 hover:shadow-xl"
             >
               {/* Subtle hover gradient overlay */}
-              <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-gradient-to-br from-brand-500/[0.03] to-transparent" />
+              <div className="from-brand-500/[0.03] pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
               <div
                 className={cn(
@@ -74,8 +67,10 @@ export function FeaturesGridSection() {
               >
                 <Icon className="h-5 w-5 text-white" />
               </div>
-              <h3 className="relative text-base font-semibold text-fg">{feature.title}</h3>
-              <p className="relative mt-2 text-sm leading-relaxed text-fg-tertiary">
+              <h3 className="text-fg relative text-base font-semibold">
+                {feature.title}
+              </h3>
+              <p className="text-fg-tertiary relative mt-2 text-sm leading-relaxed">
                 {feature.description}
               </p>
             </motion.div>

@@ -9,22 +9,37 @@ const solutions = [
   {
     icon: MessageCircle,
     title: "WhatsApp-First Design",
-    description: "Every message becomes a tracked lead. Share properties, documents, and updates without leaving WhatsApp.",
-    benefits: ["Auto-capture leads from chat", "Share property packages in one tap", "Full conversation history"],
+    description:
+      "Every message becomes a tracked lead. Share properties, documents, and updates without leaving WhatsApp.",
+    benefits: [
+      "Auto-capture leads from chat",
+      "Share property packages in one tap",
+      "Full conversation history",
+    ],
     gradient: "from-brand-500 to-brand-600",
   },
   {
     icon: LayoutDashboard,
     title: "Unified Dashboard",
-    description: "Properties, clients, documents, and deals — all in one place. Your entire brokerage, visible at a glance.",
-    benefits: ["Real-time pipeline view", "Team-wide data sync", "Single source of truth"],
+    description:
+      "Properties, clients, documents, and deals — all in one place. Your entire brokerage, visible at a glance.",
+    benefits: [
+      "Real-time pipeline view",
+      "Team-wide data sync",
+      "Single source of truth",
+    ],
     gradient: "from-brand-alt-500 to-brand-alt-600",
   },
   {
     icon: Zap,
     title: "AI-Powered Automation",
-    description: "PropFlow learns your workflow. It scores leads, suggests follow-ups, and automates busywork so you can focus on closing.",
-    benefits: ["AI lead prioritisation", "Auto-reminders & follow-ups", "Document package generation"],
+    description:
+      "PropFlow learns your workflow. It scores leads, suggests follow-ups, and automates busywork so you can focus on closing.",
+    benefits: [
+      "AI lead prioritisation",
+      "Auto-reminders & follow-ups",
+      "Document package generation",
+    ],
     gradient: "from-brand-600 to-brand-alt-500",
   },
 ];
@@ -66,7 +81,7 @@ export function SolutionSection() {
           <motion.div
             key={solution.title}
             variants={itemVariants}
-            className="group relative overflow-hidden rounded-2xl border border-border bg-surface p-8 transition-all duration-300 hover:shadow-xl"
+            className="group border-border bg-surface relative overflow-hidden rounded-2xl border p-8 transition-all duration-300 hover:shadow-xl"
           >
             <div
               className={cn(
@@ -85,13 +100,18 @@ export function SolutionSection() {
                 <solution.icon className="h-6 w-6 text-white" />
               </div>
 
-              <h3 className="text-xl font-semibold text-fg">{solution.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-fg-tertiary">{solution.description}</p>
+              <h3 className="text-fg text-xl font-semibold">{solution.title}</h3>
+              <p className="text-fg-tertiary mt-3 text-sm leading-relaxed">
+                {solution.description}
+              </p>
 
               <ul className="mt-6 space-y-2.5">
                 {solution.benefits.map((benefit) => (
-                  <li key={benefit} className="flex items-start gap-2.5 text-sm text-fg-secondary">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />
+                  <li
+                    key={benefit}
+                    className="text-fg-secondary flex items-start gap-2.5 text-sm"
+                  >
+                    <Check className="text-success mt-0.5 h-4 w-4 shrink-0" />
                     <span>{benefit}</span>
                   </li>
                 ))}

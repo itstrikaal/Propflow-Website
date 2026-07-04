@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 56" role="img" aria-label="Siddha Group">
+  <defs>
+    <linearGradient id="siddha" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="14" width="28" height="28" rx="7" fill="url(#siddha)"/>
+  <rect x="11" y="22" width="6" height="12" rx="1" fill="white"/>
+  <rect x="19" y="18" width="6" height="16" rx="1" fill="white"/>
+  <text x="42" y="34" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="currentColor" letter-spacing="-0.3">Siddha Group</text>
+</svg>

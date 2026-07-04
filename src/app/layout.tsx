@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import { Inter, Playfair_Display } from "next/font/google";
+import { MotionConfig } from "framer-motion";
 import Script from "next/script";
 import { ThemeProvider } from "@/components/shared/theme-provider";
 import { SkipToContent } from "@/components/shared/skip-to-content";
@@ -32,6 +34,8 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  // opengraph-image.tsx + twitter-image.tsx in this folder generate these
+  // dynamically, so we don't need to point to a static file.
   openGraph: {
     type: "website",
     locale: "en_IN",
@@ -39,13 +43,11 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     url: siteConfig.url,
-    images: [{ url: siteConfig.ogImage, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
-    images: [siteConfig.ogImage],
   },
   robots: {
     index: true,
@@ -61,6 +63,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteConfig.url,
   },
+  icons: {
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/apple-touch-icon.svg", type: "image/svg+xml" }],
+  },
 };
 
 export const viewport: Viewport = {
@@ -72,41 +78,62 @@ export const viewport: Viewport = {
   ],
 };
 
-const jsonOrg = JSON.stringify(organizationSchema);
-const jsonApp = JSON.stringify(softwareApplicationSchema);
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Read the per-request nonce set by middleware so our inline JSON-LD
+  // scripts satisfy the strict Content-Security-Policy.
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
+
   return (
-    <html lang="en-IN" suppressHydrationWarning className={`${inter.variable} ${playfair.variable}`}>
+    <html
+      lang="en-IN"
+      suppressHydrationWarning
+      className={`${inter.variable} ${playfair.variable}`}
+    >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className="min-h-screen bg-bg font-sans text-fg antialiased">
+      <body className="bg-bg text-fg min-h-screen font-sans antialiased">
         <Script
           id="schema-org"
           type="application/ld+json"
           strategy="afterInteractive"
-          dangerouslySetInnerHTML={{ __html: jsonOrg }}
+          nonce={nonce}
+          // The shape of these objects is owned by us and never user input.
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
         />
         <Script
           id="schema-software"
           type="application/ld+json"
           strategy="afterInteractive"
-          dangerouslySetInnerHTML={{ __html: jsonApp }}
+          nonce={nonce}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(softwareApplicationSchema),
+          }}
         />
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          <SkipToContent />
-          <Navbar />
-          <ErrorBoundary>
-            <main id="main-content">{children}</main>
-          </ErrorBoundary>
-          <Footer />
-          <CookieConsent />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {/* Respect the OS-level prefers-reduced-motion setting across every
+              motion component on the site (framer-motion / motion). */}
+          <MotionConfig reducedMotion="user">
+            <SkipToContent />
+            <Navbar />
+            <ErrorBoundary>
+              <main id="main-content">{children}</main>
+            </ErrorBoundary>
+            <Footer />
+            <CookieConsent />
+          </MotionConfig>
         </ThemeProvider>
       </body>
     </html>

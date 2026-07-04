@@ -6,23 +6,53 @@ import { comparisonData } from "@/lib/constants";
 import { ArrowLeft, ArrowUpRight, Check, X } from "lucide-react";
 
 const pages = [
-  { slug: "whatsapp", label: "WhatsApp + Gallery", col: 2, title: "PropFlow vs WhatsApp + Gallery", desc: "WhatsApp is great for chatting, but it's not a CRM. See how PropFlow fills every gap." },
-  { slug: "excel", label: "Excel / Sheets", col: 3, title: "PropFlow vs Excel / Sheets", desc: "Spreadsheets are flexible, but they weren't built for real estate. See what you're missing." },
-  { slug: "crm", label: "Traditional CRM", col: 4, title: "PropFlow vs Traditional CRM", desc: "Most CRMs are over-engineered and miss what Indian brokers actually need. See how PropFlow compares." },
+  {
+    slug: "whatsapp",
+    label: "WhatsApp + Gallery",
+    col: 2,
+    title: "PropFlow vs WhatsApp + Gallery",
+    desc: "WhatsApp is great for chatting, but it's not a CRM. See how PropFlow fills every gap.",
+  },
+  {
+    slug: "excel",
+    label: "Excel / Sheets",
+    col: 3,
+    title: "PropFlow vs Excel / Sheets",
+    desc: "Spreadsheets are flexible, but they weren't built for real estate. See what you're missing.",
+  },
+  {
+    slug: "crm",
+    label: "Traditional CRM",
+    col: 4,
+    title: "PropFlow vs Traditional CRM",
+    desc: "Most CRMs are over-engineered and miss what Indian brokers actually need. See how PropFlow compares.",
+  },
 ];
 
 export function generateStaticParams() {
   return pages.map((p) => ({ slug: p.slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const page = pages.find((p) => p.slug === slug);
   if (!page) return {};
-  return createMetadata({ title: page.title, description: page.desc, path: `/compare/${slug}` });
+  return createMetadata({
+    title: page.title,
+    description: page.desc,
+    path: `/compare/${slug}`,
+  });
 }
 
-export default async function ComparePage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function ComparePage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const page = pages.find((p) => p.slug === slug);
   if (!page) notFound();
@@ -36,20 +66,26 @@ export default async function ComparePage({ params }: { params: Promise<{ slug: 
   function isBest(rowIdx: number, colIdx: number) {
     if (colIdx === 0) return false;
     const val = cellValue(rowIdx, colIdx);
-    return val === "Built-in" || val === "Auto" || val === "Auto-tagged" || val === "Real-time" || val === "Included" || val === "1-click" || val === "AI-driven" || val === "Yes" || val === "₹999" || val === "Yes (included)";
-  }
-
-  function isNA(rowIdx: number, colIdx: number) {
-    const val = cellValue(rowIdx, colIdx);
-    return val === "N/A" || val === "Poor" || val === "Gallery chaos";
+    return (
+      val === "Built-in" ||
+      val === "Auto" ||
+      val === "Auto-tagged" ||
+      val === "Real-time" ||
+      val === "Included" ||
+      val === "1-click" ||
+      val === "AI-driven" ||
+      val === "Yes" ||
+      val === "₹999" ||
+      val === "Yes (included)"
+    );
   }
 
   function renderCell(rowIdx: number, colIdx: number) {
     const val = cellValue(rowIdx, colIdx);
-    if (val === "N/A") return <X className="h-4 w-4 text-fg-muted" />;
+    if (val === "N/A") return <X className="text-fg-muted h-4 w-4" />;
     return (
       <span className="inline-flex items-center gap-1 text-sm">
-        {isBest(rowIdx, colIdx) && <Check className="h-4 w-4 shrink-0 text-success" />}
+        {isBest(rowIdx, colIdx) && <Check className="text-success h-4 w-4 shrink-0" />}
         {val}
       </span>
     );
@@ -61,7 +97,7 @@ export default async function ComparePage({ params }: { params: Promise<{ slug: 
         <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <Link
             href="/pricing"
-            className="mb-8 inline-flex items-center gap-1 text-sm text-fg-tertiary transition-colors hover:text-fg"
+            className="text-fg-tertiary hover:text-fg mb-8 inline-flex items-center gap-1 text-sm transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Pricing
@@ -74,15 +110,15 @@ export default async function ComparePage({ params }: { params: Promise<{ slug: 
 
       <section className="section-padding bg-surface">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="overflow-x-auto rounded-2xl border border-border">
+          <div className="border-border overflow-x-auto rounded-2xl border">
             <table className="w-full text-left text-sm">
               <thead>
-                <tr className="border-b border-border bg-bg-secondary">
+                <tr className="border-border bg-bg-secondary border-b">
                   {comparisonData.headers.map((header, i) => (
                     <th
                       key={header}
-                      className={`px-4 py-3 font-semibold text-fg sm:px-6 ${
-                        i === 0 ? "sticky left-0 bg-bg-secondary" : ""
+                      className={`text-fg px-4 py-3 font-semibold sm:px-6 ${
+                        i === 0 ? "bg-bg-secondary sticky left-0" : ""
                       } ${i === competitorCol ? "text-brand-500" : ""} ${
                         i > 0 && i !== competitorCol ? "text-fg-muted" : ""
                       }`}
@@ -99,7 +135,7 @@ export default async function ComparePage({ params }: { params: Promise<{ slug: 
                 {comparisonData.rows.map((row, rowIdx) => (
                   <tr
                     key={row[0]}
-                    className={`border-b border-border last:border-0 ${
+                    className={`border-border border-b last:border-0 ${
                       rowIdx % 2 === 0 ? "bg-bg" : "bg-surface"
                     }`}
                   >
@@ -108,9 +144,9 @@ export default async function ComparePage({ params }: { params: Promise<{ slug: 
                         key={colIdx}
                         className={`px-4 py-3 sm:px-6 ${
                           colIdx === 0
-                            ? "sticky left-0 font-medium text-fg"
+                            ? "text-fg sticky left-0 font-medium"
                             : colIdx === competitorCol
-                              ? "bg-brand-500/5 font-medium text-brand-600"
+                              ? "bg-brand-500/5 text-brand-600 font-medium"
                               : "text-fg-secondary"
                         } ${colIdx === 0 ? "bg-bg" : ""} ${
                           colIdx === 0 && rowIdx % 2 === 1 ? "bg-surface" : ""
@@ -124,8 +160,9 @@ export default async function ComparePage({ params }: { params: Promise<{ slug: 
               </tbody>
             </table>
           </div>
-          <p className="mt-4 text-xs text-fg-muted">
-            All features are included in PropFlow&apos;s Starter plan at ₹999/month. Competitor pricing may vary.
+          <p className="text-fg-muted mt-4 text-xs">
+            All features are included in PropFlow&apos;s Starter plan at ₹999/month.
+            Competitor pricing may vary.
           </p>
         </div>
       </section>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useSyncExternalStore, useRef, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Moon, Sun } from "lucide-react";
@@ -9,36 +9,106 @@ import { Button } from "@/components/ui/button";
 import { navigation, siteConfig } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
+/** Returns true once hydration completes (avoids hydration mismatch for theme toggle) */
+function useHydrated() {
+  return useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
+}
+
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  const { theme, setTheme, resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const { setTheme, resolvedTheme } = useTheme();
+  const hydrated = useHydrated();
 
+  const menuButtonRef = useRef<HTMLButtonElement | null>(null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
+
+  // Close mobile menu whenever a new route is rendered
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
+    setIsOpen(false);
+  }
+
+  // Track scroll position
   useEffect(() => {
-    setMounted(true);
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Prevent body scroll + Escape-to-close + focus management while open
   useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
+    if (!isOpen) return;
 
-  // Prevent body scroll when mobile menu is open
-  useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    const previousOverflow = document.body.style.overflow;
+    const previousActive = document.activeElement as HTMLElement | null;
+    document.body.style.overflow = "hidden";
+
+    // Move focus into the dialog (first focusable element)
+    const focusFirst = () => {
+      const root = dialogRef.current;
+      if (!root) return;
+      const focusables = root.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      focusables[0]?.focus();
+    };
+    // Run after the dialog mounts
+    const mountTimer = window.setTimeout(focusFirst, 10);
+
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setIsOpen(false);
+        menuButtonRef.current?.focus();
+        return;
+      }
+      if (e.key === "Tab" && dialogRef.current) {
+        // Trap focus inside the dialog
+        const focusables = Array.from(
+          dialogRef.current.querySelectorAll<HTMLElement>(
+            'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          )
+        );
+        if (focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKey);
+    return () => {
+      window.removeEventListener("keydown", handleKey);
+      document.body.style.overflow = previousOverflow;
+      window.clearTimeout(mountTimer);
+      // Restore focus to whatever opened the menu
+      previousActive?.focus?.();
+    };
   }, [isOpen]);
+
+  const toggleMenu = useCallback(() => {
+    setIsOpen((open) => !open);
+  }, []);
 
   return (
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-500",
         scrolled
-          ? "border-b border-border/40 bg-bg/80 shadow-sm shadow-black/5 backdrop-blur-xl"
+          ? "border-border/40 bg-bg/80 border-b shadow-sm shadow-black/5 backdrop-blur-xl"
           : "bg-transparent"
       )}
     >
@@ -49,7 +119,7 @@ export function Navbar() {
           className="flex items-center gap-2.5 text-lg font-bold tracking-tight"
           aria-label={`${siteConfig.name} Home`}
         >
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-brand-500 to-brand-alt-500">
+          <div className="from-brand-500 to-brand-alt-500 flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br">
             <span className="text-sm font-bold text-white">P</span>
           </div>
           <span className="hidden sm:inline">{siteConfig.name}</span>
@@ -63,14 +133,12 @@ export function Navbar() {
               href={link.href}
               className={cn(
                 "relative text-sm font-medium transition-colors",
-                pathname === link.href
-                  ? "text-fg"
-                  : "text-fg-tertiary hover:text-fg"
+                pathname === link.href ? "text-fg" : "text-fg-tertiary hover:text-fg"
               )}
             >
               {link.label}
               {pathname === link.href && (
-                <span className="absolute -bottom-1 left-0 h-0.5 w-full rounded-full bg-brand-500" />
+                <span className="bg-brand-500 absolute -bottom-1 left-0 h-0.5 w-full rounded-full" />
               )}
             </Link>
           ))}
@@ -78,11 +146,14 @@ export function Navbar() {
 
         {/* Desktop Actions */}
         <div className="hidden items-center gap-3 md:flex">
-          {mounted && (
+          {hydrated && (
             <button
+              type="button"
               onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-              className="flex h-9 w-9 items-center justify-center rounded-lg text-fg-tertiary transition-colors hover:bg-surface-secondary hover:text-fg"
-              aria-label={resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+              className="text-fg-tertiary hover:bg-surface-secondary hover:text-fg flex h-9 w-9 items-center justify-center rounded-lg transition-colors"
+              aria-label={
+                resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+              }
             >
               {resolvedTheme === "dark" ? (
                 <Sun className="h-4 w-4" />
@@ -101,11 +172,14 @@ export function Navbar() {
 
         {/* Mobile Menu Button */}
         <div className="flex items-center gap-2 md:hidden">
-          {mounted && (
+          {hydrated && (
             <button
+              type="button"
               onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-              className="flex h-9 w-9 items-center justify-center rounded-lg text-fg-tertiary transition-colors hover:bg-surface-secondary hover:text-fg"
-              aria-label={resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+              className="text-fg-tertiary hover:bg-surface-secondary hover:text-fg flex h-9 w-9 items-center justify-center rounded-lg transition-colors"
+              aria-label={
+                resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+              }
             >
               {resolvedTheme === "dark" ? (
                 <Sun className="h-4 w-4" />
@@ -115,9 +189,12 @@ export function Navbar() {
             </button>
           )}
           <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="flex h-9 w-9 items-center justify-center rounded-lg text-fg transition-colors hover:bg-surface-secondary"
+            ref={menuButtonRef}
+            type="button"
+            onClick={toggleMenu}
+            className="text-fg hover:bg-surface-secondary flex h-9 w-9 items-center justify-center rounded-lg transition-colors"
             aria-expanded={isOpen}
+            aria-controls="mobile-menu"
             aria-label={isOpen ? "Close menu" : "Open menu"}
           >
             {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -127,13 +204,21 @@ export function Navbar() {
 
       {/* Mobile Navigation Overlay */}
       {isOpen && (
-        <div className="fixed inset-0 top-16 z-40 md:hidden" role="dialog" aria-modal="true">
-          <div className="flex h-[calc(100dvh-4rem)] flex-col border-t border-border bg-bg/98 backdrop-blur-xl px-4 pb-8 pt-6">
+        <div
+          ref={dialogRef}
+          id="mobile-menu"
+          className="fixed inset-0 top-16 z-40 md:hidden"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Site navigation"
+        >
+          <div className="border-border bg-bg/98 flex h-[calc(100dvh-4rem)] flex-col border-t px-4 pt-6 pb-8 backdrop-blur-xl">
             <nav className="flex flex-col gap-1" aria-label="Mobile navigation">
               {navigation.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
+                  onClick={() => setIsOpen(false)}
                   className={cn(
                     "rounded-lg px-4 py-3 text-base font-medium transition-colors",
                     pathname === link.href
@@ -146,12 +231,20 @@ export function Navbar() {
               ))}
             </nav>
             <div className="mt-auto flex flex-col gap-3 pt-6">
-              <Link href="https://app.propflow.in/sign-in" className="w-full">
+              <Link
+                href="https://app.propflow.in/sign-in"
+                className="w-full"
+                onClick={() => setIsOpen(false)}
+              >
                 <Button variant="secondary" className="w-full">
                   Sign In
                 </Button>
               </Link>
-              <Link href="https://app.propflow.in/sign-up" className="w-full">
+              <Link
+                href="https://app.propflow.in/sign-up"
+                className="w-full"
+                onClick={() => setIsOpen(false)}
+              >
                 <Button variant="gradient" className="w-full">
                   Start Free Trial
                 </Button>

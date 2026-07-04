@@ -43,7 +43,7 @@ export function PricingSection() {
         >
           <span
             className={cn(
-              "inline-block h-5 w-5 transform rounded-full bg-surface shadow-sm transition-transform",
+              "bg-surface inline-block h-5 w-5 transform rounded-full shadow-sm transition-transform",
               isYearly ? "translate-x-6" : "translate-x-1"
             )}
           />
@@ -55,7 +55,7 @@ export function PricingSection() {
           )}
         >
           Annual
-          <span className="rounded-full bg-success-bg px-2 py-0.5 text-[10px] font-semibold text-success">
+          <span className="bg-success-bg text-success rounded-full px-2 py-0.5 text-[10px] font-semibold">
             Save 17%
           </span>
         </span>
@@ -73,25 +73,31 @@ export function PricingSection() {
             className={cn(
               "relative flex flex-col rounded-2xl border p-8 transition-all duration-300",
               tier.highlighted
-                ? "border-brand-500 bg-surface shadow-xl shadow-brand-500/10"
+                ? "border-brand-500 bg-surface shadow-brand-500/10 shadow-xl"
                 : "border-border bg-surface hover:shadow-lg"
             )}
           >
             {tier.badge && (
-              <Badge variant="gradient" className="absolute -top-3 left-1/2 -translate-x-1/2">
+              <Badge
+                variant="gradient"
+                className="absolute -top-3 left-1/2 -translate-x-1/2"
+              >
                 {tier.badge}
               </Badge>
             )}
 
             <div>
-              <h3 className="text-lg font-semibold text-fg">{tier.name}</h3>
-              <p className="mt-1 text-sm text-fg-tertiary">{tier.description}</p>
+              <h3 className="text-fg text-lg font-semibold">{tier.name}</h3>
+              <p className="text-fg-tertiary mt-1 text-sm">{tier.description}</p>
 
               <div className="mt-6 flex items-baseline gap-1">
-                <span className="text-4xl font-bold tracking-tight text-fg">
-                  ₹{isYearly ? tier.yearlyPrice.toLocaleString("en-IN") : tier.monthlyPrice.toLocaleString("en-IN")}
+                <span className="text-fg text-4xl font-bold tracking-tight">
+                  ₹
+                  {isYearly
+                    ? tier.yearlyPrice.toLocaleString("en-IN")
+                    : tier.monthlyPrice.toLocaleString("en-IN")}
                 </span>
-                <span className="text-sm text-fg-muted">
+                <span className="text-fg-muted text-sm">
                   {isYearly ? "/year" : "/month"}
                 </span>
               </div>
@@ -99,7 +105,10 @@ export function PricingSection() {
 
             <ul className="mt-8 space-y-3">
               {tier.features.map((feature) => (
-                <li key={feature} className="flex items-start gap-3 text-sm text-fg-secondary">
+                <li
+                  key={feature}
+                  className="text-fg-secondary flex items-start gap-3 text-sm"
+                >
                   <Check
                     className={cn(
                       "mt-0.5 h-4 w-4 shrink-0",

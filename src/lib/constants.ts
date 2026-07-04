@@ -1,4 +1,12 @@
-import type { NavLink, Stat, Integration, PricingTier, FAQItem, Testimonial, Feature } from "@/types";
+import type {
+  NavLink,
+  Stat,
+  Integration,
+  PricingTier,
+  FAQItem,
+  Testimonial,
+  Feature,
+} from "@/types";
 
 export const siteConfig = {
   name: "PropFlow",
@@ -39,15 +47,36 @@ export const footerLinks = {
     { href: "/privacy", label: "Privacy" },
     { href: "/terms", label: "Terms" },
   ],
-
 };
 
+// ─── Marketing stats ────────────────────────────────────────────────────────
+// Single source of truth used across the home hero, about page and press kit.
+// Keep these aspirational-but-honest: round numbers and label them clearly.
 export const stats: Stat[] = [
-  { value: 1847, suffix: "+", label: "Deals closed this month" },
-  { value: 1800, suffix: "+", label: "Active brokers" },
-  { value: 99.9, suffix: "%", label: "Platform uptime" },
-  { value: 15, suffix: "hrs/wk", label: "Time saved per broker" },
+  { value: 1800, suffix: "+", label: "Active brokers across India" },
+  { value: 99.9, suffix: "%", label: "Platform uptime — last 90 days" },
+  { value: 15, suffix: " hrs/wk", label: "Average time saved per broker" },
+  { value: 3, suffix: "x", label: "More deals closed vs. spreadsheets" },
 ];
+
+// "All-time" cumulative numbers used on the About page.
+export const companyStats: Stat[] = [
+  { value: 12000, suffix: "+", label: "Deals tracked on PropFlow" },
+  { value: 1800, suffix: "+", label: "Active brokers" },
+  { value: 22, suffix: "", label: "Indian cities covered" },
+];
+
+// Trust signals surfaced site-wide (badges, microcopy, schema).
+export const trustSignals = {
+  founded: 2024,
+  headquarters: "Bengaluru, India",
+  dataResidency: "Mumbai & Bengaluru (AWS India)",
+  encryption: "AES-256 at rest, TLS 1.3 in transit",
+  compliance: ["DPDPA-ready", "RERA-aware workflows", "ISO 27001 (in progress)"],
+  uptimeSLA: "99.9%",
+  support: ["Email", "WhatsApp", "Phone (Enterprise)"],
+  supportHours: "Mon–Sat, 9am–9pm IST",
+} as const;
 
 export const features: Feature[] = [
   {
@@ -104,17 +133,20 @@ export const howItWorks: { step: number; title: string; description: string }[] 
   {
     step: 1,
     title: "Connect Your WhatsApp",
-    description: "Link your WhatsApp Business account. PropFlow automatically captures every lead, message, and inquiry.",
+    description:
+      "Link your WhatsApp Business account. PropFlow automatically captures every lead, message, and inquiry.",
   },
   {
     step: 2,
     title: "Manage Everything in One Place",
-    description: "Properties, documents, follow-ups, and deals — all organised in a single dashboard. Your team sees the same data.",
+    description:
+      "Properties, documents, follow-ups, and deals — all organised in a single dashboard. Your team sees the same data.",
   },
   {
     step: 3,
     title: "Close Deals Faster",
-    description: "AI suggests next actions, auto-generates document packages, and reminds you when to follow up. Deals move faster.",
+    description:
+      "AI suggests next actions, auto-generates document packages, and reminds you when to follow up. Deals move faster.",
   },
 ];
 
@@ -286,7 +318,13 @@ export const testimonials: Testimonial[] = [
 ];
 
 export const comparisonData = {
-  headers: ["Feature", "PropFlow", "WhatsApp + Gallery", "Excel / Sheets", "Traditional CRM"],
+  headers: [
+    "Feature",
+    "PropFlow",
+    "WhatsApp + Gallery",
+    "Excel / Sheets",
+    "Traditional CRM",
+  ],
   rows: [
     ["WhatsApp lead capture", "Auto", "Manual", "N/A", "N/A"],
     ["Property management", "Built-in", "Scattered", "Manual", "Add-on"],

@@ -6,7 +6,8 @@ import { createMetadata } from "@/lib/metadata";
 
 export const metadata = createMetadata({
   title: "Features",
-  description: "PropFlow combines WhatsApp CRM, AI lead scoring, document management, analytics, and automation into one platform for Indian property brokers.",
+  description:
+    "PropFlow combines WhatsApp CRM, AI lead scoring, document management, analytics, and automation into one platform for Indian property brokers.",
   path: "/features",
 });
 
@@ -18,7 +19,8 @@ export default function FeaturesPage() {
           <span className="section-label">Features</span>
           <h1 className="section-title">Everything your brokerage needs.</h1>
           <p className="section-sub mx-auto max-w-2xl">
-            PropFlow replaces five separate tools with one intelligent platform. Every feature is built for the way Indian property brokers actually work.
+            PropFlow replaces five separate tools with one intelligent platform. Every
+            feature is built for the way Indian property brokers actually work.
           </p>
         </div>
       </section>

@@ -4,24 +4,23 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium ring-offset-bg transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 select-none",
+  "ring-offset-bg focus-visible:ring-brand-500 inline-flex items-center justify-center gap-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 select-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
         default:
-          "bg-brand-500 text-white hover:bg-brand-600 active:scale-[0.97] shadow-md hover:shadow-lg",
+          "bg-brand-500 hover:bg-brand-600 text-white shadow-md hover:shadow-lg active:scale-[0.97]",
         secondary:
-          "bg-surface-secondary text-fg border border-border hover:bg-surface-tertiary active:scale-[0.97]",
+          "bg-surface-secondary text-fg border-border hover:bg-surface-tertiary border active:scale-[0.97]",
         outline:
-          "border border-brand-500 text-brand-500 bg-transparent hover:bg-brand-500 hover:text-white active:scale-[0.97]",
+          "border-brand-500 text-brand-500 hover:bg-brand-500 border bg-transparent hover:text-white active:scale-[0.97]",
         ghost:
           "text-fg-secondary hover:text-fg hover:bg-surface-secondary active:scale-[0.97]",
-        link:
-          "text-brand-500 underline-offset-4 hover:underline",
+        link: "text-brand-500 underline-offset-4 hover:underline",
         gradient:
-          "relative overflow-hidden bg-gradient-to-r from-brand-500 to-brand-alt-500 text-white hover:opacity-90 active:scale-[0.97] shadow-md hover:shadow-lg before:absolute before:inset-0 before:bg-white/0 hover:before:bg-white/10 before:transition-colors",
+          "from-brand-500 to-brand-alt-500 relative overflow-hidden bg-gradient-to-r text-white shadow-md before:absolute before:inset-0 before:bg-white/0 before:transition-colors hover:opacity-90 hover:shadow-lg hover:before:bg-white/10 active:scale-[0.97]",
         whatsapp:
-          "bg-whatsapp text-white hover:bg-whatsapp-dark active:scale-[0.97] shadow-md",
+          "bg-whatsapp hover:bg-whatsapp-dark text-white shadow-md active:scale-[0.97]",
       },
       size: {
         default: "h-10 px-5 py-2",
@@ -39,7 +38,8 @@ const buttonVariants = cva(
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
 }

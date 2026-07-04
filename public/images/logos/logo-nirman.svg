@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 56" role="img" aria-label="Nirman Ventures">
+  <defs>
+    <linearGradient id="nir" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#b91c1c"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="14" width="28" height="28" rx="7" fill="url(#nir)"/>
+  <path d="M10 32 L18 20 L26 32 Z" fill="none" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+  <rect x="16" y="27" width="4" height="5" fill="white"/>
+  <text x="42" y="34" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="currentColor" letter-spacing="-0.3">Nirman</text>
+</svg>

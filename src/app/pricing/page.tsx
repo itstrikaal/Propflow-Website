@@ -5,7 +5,8 @@ import { createMetadata } from "@/lib/metadata";
 
 export const metadata = createMetadata({
   title: "Pricing",
-  description: "Simple, transparent pricing for Indian property brokers. Start with a 14-day free trial. No credit card required.",
+  description:
+    "Simple, transparent pricing for Indian property brokers. Start with a 14-day free trial. No credit card required.",
   path: "/pricing",
 });
 
@@ -17,7 +18,8 @@ export default function PricingPage() {
           <span className="section-label">Pricing</span>
           <h1 className="section-title">Simple pricing for every brokerage.</h1>
           <p className="section-sub mx-auto max-w-2xl">
-            Whether you&apos;re a solo broker or a growing agency, PropFlow has a plan that scales with you.
+            Whether you&apos;re a solo broker or a growing agency, PropFlow has a plan
+            that scales with you.
           </p>
         </div>
       </section>

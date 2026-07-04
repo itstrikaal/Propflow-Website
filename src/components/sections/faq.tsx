@@ -20,22 +20,19 @@ export function FAQSection() {
     >
       <div className="mx-auto max-w-3xl">
         {faqItems.map((item) => (
-          <div
-            key={item.id}
-            className="border-b border-border last:border-b-0"
-          >
+          <div key={item.id} className="border-border border-b last:border-b-0">
             <button
               onClick={() => setOpenId(openId === item.id ? null : item.id)}
-              className="flex w-full items-center justify-between gap-4 py-5 text-left transition-colors hover:text-fg sm:py-6"
+              className="hover:text-fg flex w-full items-center justify-between gap-4 py-5 text-left transition-colors sm:py-6"
               aria-expanded={openId === item.id}
               aria-controls={`faq-answer-${item.id}`}
             >
-              <span className="text-sm font-medium text-fg sm:text-base">
+              <span className="text-fg text-sm font-medium sm:text-base">
                 {item.question}
               </span>
               <ChevronDown
                 className={cn(
-                  "h-4 w-4 shrink-0 text-fg-muted transition-transform duration-200",
+                  "text-fg-muted h-4 w-4 shrink-0 transition-transform duration-200",
                   openId === item.id && "rotate-180"
                 )}
               />
@@ -50,7 +47,7 @@ export function FAQSection() {
                   transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                   className="overflow-hidden"
                 >
-                  <p className="pb-5 text-sm leading-relaxed text-fg-tertiary sm:pb-6 sm:text-base">
+                  <p className="text-fg-tertiary pb-5 text-sm leading-relaxed sm:pb-6 sm:text-base">
                     {item.answer}
                   </p>
                 </motion.div>

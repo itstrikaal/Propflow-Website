@@ -48,31 +48,31 @@ export function TestimonialsSection() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="relative rounded-2xl border border-border bg-surface p-8 shadow-sm sm:p-12"
+            className="border-border bg-surface relative rounded-2xl border p-8 shadow-sm sm:p-12"
           >
-            <Quote className="absolute right-8 top-8 h-12 w-12 text-brand-500/10" />
+            <Quote className="text-brand-500/10 absolute top-8 right-8 h-12 w-12" />
 
             {/* Stars */}
             <div className="mb-6 flex gap-1">
               {Array.from({ length: testimonial.rating }).map((_, i) => (
-                <Star key={i} className="h-4 w-4 fill-warning text-warning" />
+                <Star key={i} className="fill-warning text-warning h-4 w-4" />
               ))}
             </div>
 
-            <blockquote className="text-base leading-relaxed text-fg-secondary sm:text-lg">
+            <blockquote className="text-fg-secondary text-base leading-relaxed sm:text-lg">
               &ldquo;{testimonial.content}&rdquo;
             </blockquote>
 
             <div className="mt-8 flex items-center gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-brand-alt-500 text-sm font-bold text-white">
+              <div className="from-brand-500 to-brand-alt-500 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br text-sm font-bold text-white">
                 {testimonial.name
                   .split(" ")
                   .map((n) => n[0])
                   .join("")}
               </div>
               <div>
-                <p className="text-sm font-semibold text-fg">{testimonial.name}</p>
-                <p className="text-xs text-fg-muted">
+                <p className="text-fg text-sm font-semibold">{testimonial.name}</p>
+                <p className="text-fg-muted text-xs">
                   {testimonial.role}, {testimonial.company}
                 </p>
               </div>
@@ -84,7 +84,7 @@ export function TestimonialsSection() {
         <div className="mt-8 flex items-center justify-center gap-4">
           <button
             onClick={prev}
-            className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-fg-secondary transition-colors hover:bg-surface-secondary hover:text-fg"
+            className="border-border bg-surface text-fg-secondary hover:bg-surface-secondary hover:text-fg flex h-10 w-10 items-center justify-center rounded-xl border transition-colors"
             aria-label="Previous testimonial"
           >
             <ChevronLeft className="h-4 w-4" />
@@ -101,8 +101,8 @@ export function TestimonialsSection() {
                 className={cn(
                   "h-2 rounded-full transition-all duration-300",
                   index === current
-                    ? "w-8 bg-brand-500"
-                    : "w-2 bg-surface-tertiary hover:bg-fg-muted"
+                    ? "bg-brand-500 w-8"
+                    : "bg-surface-tertiary hover:bg-fg-muted w-2"
                 )}
                 aria-label={`Go to testimonial ${index + 1}`}
               />
@@ -111,7 +111,7 @@ export function TestimonialsSection() {
 
           <button
             onClick={next}
-            className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-fg-secondary transition-colors hover:bg-surface-secondary hover:text-fg"
+            className="border-border bg-surface text-fg-secondary hover:bg-surface-secondary hover:text-fg flex h-10 w-10 items-center justify-center rounded-xl border transition-colors"
             aria-label="Next testimonial"
           >
             <ChevronRight className="h-4 w-4" />

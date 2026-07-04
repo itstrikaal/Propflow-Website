@@ -90,7 +90,8 @@ export const pricingMetadata: Metadata = createMetadata({
 
 export const aboutMetadata: Metadata = createMetadata({
   title: "About",
-  description: "PropFlow is building the operating system for Indian property brokers. Learn our story, mission, and vision.",
+  description:
+    "PropFlow is building the operating system for Indian property brokers. Learn our story, mission, and vision.",
   path: "/about",
 });
 
@@ -116,7 +117,8 @@ export const securityMetadata: Metadata = createMetadata({
 
 export const roadmapMetadata: Metadata = createMetadata({
   title: "Roadmap",
-  description: "See what's coming next to PropFlow. We build in public and prioritise what brokers need most.",
+  description:
+    "See what's coming next to PropFlow. We build in public and prioritise what brokers need most.",
   path: "/roadmap",
 });
 
@@ -128,7 +130,8 @@ export const changelogMetadata: Metadata = createMetadata({
 
 export const careersMetadata: Metadata = createMetadata({
   title: "Careers",
-  description: "Join PropFlow and help build the operating system for Indian property brokers. View open positions.",
+  description:
+    "Join PropFlow and help build the operating system for Indian property brokers. View open positions.",
   path: "/careers",
 });
 
@@ -140,7 +143,8 @@ export const privacyMetadata: Metadata = createMetadata({
 
 export const termsMetadata: Metadata = createMetadata({
   title: "Terms of Service",
-  description: "PropFlow terms of service — the terms governing your use of our platform.",
+  description:
+    "PropFlow terms of service — the terms governing your use of our platform.",
   path: "/terms",
 });
 

@@ -99,19 +99,23 @@ export function breadcrumbSchema(items: { label: string; href: string }[]) {
 }
 
 export function websiteSchema() {
+  // Note: SearchAction is intentionally omitted because /search is not yet
+  // implemented. Adding it before the route exists causes a Google Search
+  // Console error in the Enhancements panel.
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: siteConfig.name,
     url: siteConfig.url,
     description: siteConfig.description,
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${siteConfig.url}/search?q={search_term_string}`,
+    inLanguage: siteConfig.locale,
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteConfig.url}/logo.svg`,
       },
-      "query-input": "required name=search_term_string",
     },
   };
 }

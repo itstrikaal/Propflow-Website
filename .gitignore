@@ -44,3 +44,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local-only runtime data (contact form fallback when no Resend key)
+/data
+/contact-messages.json

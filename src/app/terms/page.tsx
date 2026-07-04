@@ -2,7 +2,8 @@ import { createMetadata } from "@/lib/metadata";
 
 export const metadata = createMetadata({
   title: "Terms of Service",
-  description: "PropFlow terms of service — the legal agreement between you and PropFlow.",
+  description:
+    "PropFlow terms of service — the legal agreement between you and PropFlow.",
   path: "/terms",
   noIndex: true,
 });
@@ -15,23 +16,28 @@ export default function TermsPage() {
         <h1 className="section-title mt-2">Terms of Service</h1>
         <p className="section-sub">Last updated: June 15, 2026</p>
 
-        <div className="mt-10 space-y-8 text-sm leading-relaxed text-fg-secondary">
+        <div className="text-fg-secondary mt-10 space-y-8 text-sm leading-relaxed">
           <section>
-            <h2 className="text-lg font-semibold text-fg">1. Acceptance of Terms</h2>
+            <h2 className="text-fg text-lg font-semibold">1. Acceptance of Terms</h2>
             <p className="mt-2">
-              By accessing or using PropFlow (&ldquo;the Platform&rdquo;), you agree to be bound by these Terms of Service. If you do not agree, please do not use the Platform.
+              By accessing or using PropFlow (&ldquo;the Platform&rdquo;), you agree to be
+              bound by these Terms of Service. If you do not agree, please do not use the
+              Platform.
             </p>
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-fg">2. Description of Service</h2>
+            <h2 className="text-fg text-lg font-semibold">2. Description of Service</h2>
             <p className="mt-2">
-              PropFlow provides a property management platform designed for Indian real estate professionals. The Platform includes tools for lead management, property listing, document management, WhatsApp integration, analytics, and team collaboration.
+              PropFlow provides a property management platform designed for Indian real
+              estate professionals. The Platform includes tools for lead management,
+              property listing, document management, WhatsApp integration, analytics, and
+              team collaboration.
             </p>
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-fg">3. User Accounts</h2>
+            <h2 className="text-fg text-lg font-semibold">3. User Accounts</h2>
             <p className="mt-2">You are responsible for:</p>
             <ul className="mt-2 list-disc space-y-1 pl-5">
               <li>Maintaining the confidentiality of your account credentials</li>
@@ -42,7 +48,7 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-fg">4. Acceptable Use</h2>
+            <h2 className="text-fg text-lg font-semibold">4. Acceptable Use</h2>
             <p className="mt-2">You agree not to:</p>
             <ul className="mt-2 list-disc space-y-1 pl-5">
               <li>Use the Platform for any unlawful purpose</li>
@@ -55,35 +61,43 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-fg">5. Payment and Billing</h2>
+            <h2 className="text-fg text-lg font-semibold">5. Payment and Billing</h2>
             <p className="mt-2">
-              Paid plans are billed in advance on a monthly or annual basis. All prices are in Indian Rupees (INR) plus applicable taxes. You can cancel your subscription at any time. Upon cancellation, you retain access until the end of your billing period.
+              Paid plans are billed in advance on a monthly or annual basis. All prices
+              are in Indian Rupees (INR) plus applicable taxes. You can cancel your
+              subscription at any time. Upon cancellation, you retain access until the end
+              of your billing period.
             </p>
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-fg">6. Limitation of Liability</h2>
+            <h2 className="text-fg text-lg font-semibold">6. Limitation of Liability</h2>
             <p className="mt-2">
-              PropFlow is provided &ldquo;as is&rdquo; without warranty of any kind. We shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the Platform.
+              PropFlow is provided &ldquo;as is&rdquo; without warranty of any kind. We
+              shall not be liable for any indirect, incidental, special, consequential, or
+              punitive damages arising from your use of the Platform.
             </p>
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-fg">7. Changes to Terms</h2>
+            <h2 className="text-fg text-lg font-semibold">7. Changes to Terms</h2>
             <p className="mt-2">
-              We reserve the right to modify these terms at any time. We will notify users of material changes via email or through the Platform. Continued use after changes constitutes acceptance of the new terms.
+              We reserve the right to modify these terms at any time. We will notify users
+              of material changes via email or through the Platform. Continued use after
+              changes constitutes acceptance of the new terms.
             </p>
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-fg">8. Governing Law</h2>
+            <h2 className="text-fg text-lg font-semibold">8. Governing Law</h2>
             <p className="mt-2">
-              These terms shall be governed by the laws of India. Any disputes shall be subject to the jurisdiction of courts in Pune, Maharashtra.
+              These terms shall be governed by the laws of India. Any disputes shall be
+              subject to the jurisdiction of courts in Pune, Maharashtra.
             </p>
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-fg">9. Contact</h2>
+            <h2 className="text-fg text-lg font-semibold">9. Contact</h2>
             <p className="mt-2">
               For questions about these terms, contact us at:
               <br />
