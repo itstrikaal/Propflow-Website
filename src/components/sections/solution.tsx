@@ -2,49 +2,22 @@
 
 import { motion } from "framer-motion";
 import { SectionWrapper } from "@/components/shared/section-wrapper";
-import { Check, MessageCircle, LayoutDashboard, Zap } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Check, ArrowRight, MessageCircle, LayoutDashboard, Zap } from "lucide-react";
+import { solutionPillars } from "@/lib/constants";
+import type { LucideIcon } from "lucide-react";
 
-const solutions = [
-  {
-    icon: MessageCircle,
-    title: "WhatsApp-first design",
-    description:
-      "Every message becomes a tracked lead. Share properties, documents, and updates without leaving WhatsApp.",
-    benefits: [
-      "Auto-capture leads from chat",
-      "Share property packages in one tap",
-      "Full conversation history",
-    ],
-  },
-  {
-    icon: LayoutDashboard,
-    title: "Unified dashboard",
-    description:
-      "Properties, clients, documents, and deals — all in one place. Your entire brokerage, visible at a glance.",
-    benefits: [
-      "Real-time pipeline view",
-      "Team-wide data sync",
-      "Single source of truth",
-    ],
-  },
-  {
-    icon: Zap,
-    title: "AI-powered automation",
-    description:
-      "PropFlow learns your workflow. It scores leads, suggests follow-ups, and automates busywork so you can focus on closing.",
-    benefits: [
-      "AI lead prioritisation",
-      "Auto-reminders & follow-ups",
-      "Document package generation",
-    ],
-  },
-];
+const iconMap: Record<string, LucideIcon> = {
+  "message-circle": MessageCircle,
+  "layout-dashboard": LayoutDashboard,
+  zap: Zap,
+};
 
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.12 },
+    transition: { staggerChildren: 0.1 },
   },
 };
 
@@ -62,53 +35,88 @@ export function SolutionSection() {
     <SectionWrapper
       id="solution"
       variant="light"
-      label="The solution"
+      label="How PropFlow fixes it"
       serifTitle
-      title="PropFlow brings everything together."
-      description="One platform. WhatsApp, properties, documents, and deals — unified. No more app-switching."
+      title={
+        <>
+          One workspace.
+          <br />
+          <span className="text-fg-tertiary">Every part of your day.</span>
+        </>
+      }
+      description="Three pillars that turn chaos into a clear, repeatable workflow — from the first WhatsApp ping to the registered deed."
+      mesh="soft"
     >
+      {/* Mobile-first: 1 col → 3 col at lg */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-80px" }}
-        className="grid gap-6 lg:grid-cols-3"
+        className="grid gap-5 lg:grid-cols-3 lg:gap-6"
       >
-        {solutions.map((solution, idx) => (
-          <motion.div
-            key={solution.title}
-            variants={itemVariants}
-            className="group border-border bg-surface relative flex flex-col overflow-hidden rounded-3xl border p-8 transition-all duration-500 hover:-translate-y-0.5 hover:shadow-lg"
-          >
-            {/* Step index */}
-            <span className="text-fg-muted absolute top-7 right-7 font-display text-sm tracking-[-0.02em] tabular-nums">
-              0{idx + 1}
-            </span>
+        {solutionPillars.map((pillar, idx) => {
+          const Icon = iconMap[pillar.icon] ?? MessageCircle;
+          return (
+            <motion.div
+              key={pillar.id}
+              variants={itemVariants}
+              className="group border-border bg-surface relative flex flex-col overflow-hidden rounded-3xl border p-6 transition-all duration-500 hover:-translate-y-0.5 hover:shadow-lg sm:p-8"
+            >
+              {/* Step index */}
+              <span className="text-fg-muted absolute top-6 right-6 font-display text-sm tracking-[-0.02em] tabular-nums sm:top-7 sm:right-7">
+                0{idx + 1}
+              </span>
 
-            <div className="border-border bg-surface-secondary flex h-12 w-12 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-105">
-              <solution.icon className="text-fg h-5 w-5" />
-            </div>
+              <div className="border-border bg-surface-secondary flex h-11 w-11 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-105 sm:h-12 sm:w-12">
+                <Icon className="text-fg h-5 w-5" />
+              </div>
 
-            <h3 className="text-fg mt-6 text-xl font-semibold tracking-[-0.022em]">
-              {solution.title}
-            </h3>
-            <p className="text-fg-tertiary mt-3 text-sm leading-relaxed">
-              {solution.description}
-            </p>
+              <h3 className="text-fg mt-5 text-lg font-semibold tracking-[-0.022em] sm:mt-6 sm:text-xl">
+                {pillar.title}
+              </h3>
+              <p className="text-fg-tertiary mt-3 text-sm leading-relaxed">
+                {pillar.description}
+              </p>
 
-            <ul className="mt-6 space-y-2.5">
-              {solution.benefits.map((benefit) => (
-                <li
-                  key={benefit}
-                  className="text-fg-secondary flex items-start gap-2.5 text-sm"
-                >
-                  <Check className="text-fg mt-0.5 h-4 w-4 shrink-0" />
-                  <span>{benefit}</span>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        ))}
+              <ul className="mt-6 space-y-2.5">
+                {pillar.benefits.map((benefit) => (
+                  <li
+                    key={benefit}
+                    className="text-fg-secondary flex items-start gap-2.5 text-sm"
+                  >
+                    <Check className="text-fg mt-0.5 h-4 w-4 shrink-0" />
+                    <span>{benefit}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          );
+        })}
+      </motion.div>
+
+      {/* Inline CTA below the three pillars */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="mt-12 flex flex-col items-center gap-4 text-center sm:mt-14"
+      >
+        <p className="text-fg-secondary max-w-md text-sm sm:text-base">
+          Want to see every feature in detail?
+        </p>
+        <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+          <Button variant="default" size="lg" asChild className="group">
+            <a href="#features">
+              Explore the platform
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </a>
+          </Button>
+          <Button variant="ghost" size="lg" asChild>
+            <a href="#how-it-works">See how setup works</a>
+          </Button>
+        </div>
       </motion.div>
     </SectionWrapper>
   );

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { SectionWrapper } from "@/components/shared/section-wrapper";
+import { Button } from "@/components/ui/button";
 import {
   MessageCircle,
   Brain,
@@ -9,8 +10,11 @@ import {
   Zap,
   BarChart3,
   Share2,
+  Building,
+  Bell,
   Check,
   ArrowUpRight,
+  ArrowRight,
 } from "lucide-react";
 import { features } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -22,31 +26,31 @@ const iconMap: Record<string, React.ElementType> = {
   zap: Zap,
   "bar-chart-3": BarChart3,
   "share-2": Share2,
+  building: Building,
+  bell: Bell,
 };
 
 /**
- * Bento grid span map — each feature gets a column span + row span
- * to create an asymmetric, editorial layout.
+ * Bento grid span map — desktop (≥md) uses an asymmetric layout.
+ * On mobile and small tablets, all cards stack to full width.
  *
  *   ┌───────────────────────┬──────────┐
- *   │                       │          │
- *   │  whatsapp-crm  (4×2)  │  brain   │
+ *   │  whatsapp-crm  (4×2)  │  listings│
  *   │                       │   (2×1)  │
  *   ├──────────┬────────────┴──────────┤
- *   │ file-    │      zap             │
- *   │ text     │      (2×1)           │
- *   │ (2×1)    │                      │
+ *   │ documents│      follow-ups      │
+ *   │ (2×1)    │      (2×1)           │
  *   ├──────────┴──────────────────────┤
- *   │   bar-chart-3   │   share-2     │
- *   │   (3×1)         │   (3×1)       │
+ *   │   pipeline    │   sharing        │
+ *   │   (3×1)       │   (3×1)         │
  *   └─────────────────┴───────────────┘
  */
 const spanMap: Record<string, string> = {
   "whatsapp-crm": "md:col-span-4 md:row-span-2",
-  "ai-lead-scoring": "md:col-span-2 md:row-span-1",
-  "document-management": "md:col-span-2 md:row-span-1",
-  automation: "md:col-span-2 md:row-span-1",
-  analytics: "md:col-span-3 md:row-span-1",
+  listings: "md:col-span-2 md:row-span-1",
+  documents: "md:col-span-2 md:row-span-1",
+  "follow-ups": "md:col-span-2 md:row-span-1",
+  pipeline: "md:col-span-3 md:row-span-1",
   sharing: "md:col-span-3 md:row-span-1",
 };
 
@@ -54,12 +58,12 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.08 },
+    transition: { staggerChildren: 0.07 },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
@@ -84,12 +88,13 @@ export function FeaturesGridSection() {
       description="Six focused tools, deeply integrated. No more app-switching, copy-pasting, or losing track of what matters."
       mesh="soft"
     >
+      {/* Mobile-first: 1 col → 2 col at sm → bento at md */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-80px" }}
-        className="grid auto-rows-[minmax(220px,auto)] grid-cols-1 gap-4 md:grid-cols-6"
+        className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 md:auto-rows-[minmax(220px,auto)] md:grid-cols-6"
       >
         {features.map((feature) => {
           const Icon = iconMap[feature.icon] || MessageCircle;
@@ -101,52 +106,59 @@ export function FeaturesGridSection() {
               key={feature.id}
               variants={itemVariants}
               className={cn(
-                "group border-border bg-surface relative overflow-hidden rounded-3xl border p-6 transition-all duration-500 sm:p-8",
+                "group border-border bg-surface relative overflow-hidden rounded-2xl border p-5 transition-all duration-500 sm:rounded-3xl sm:p-6 md:p-8",
                 "hover:border-fg/20 hover:-translate-y-0.5 hover:shadow-lg",
                 span
               )}
             >
-              {/* Subtle accent corner glow on hover */}
               <div className="from-fg/[0.04] pointer-events-none absolute -top-12 -right-12 h-32 w-32 rounded-full bg-gradient-to-br to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
 
               <div className="relative flex h-full flex-col">
                 <div className="flex items-start justify-between">
-                  <div className="border-border bg-surface-secondary text-fg flex h-11 w-11 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-105">
-                    <Icon className="h-5 w-5" />
+                  <div className="border-border bg-surface-secondary text-fg flex h-10 w-10 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-105 sm:h-11 sm:w-11">
+                    <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
                   </div>
                   {!isHero && (
                     <ArrowUpRight className="text-fg-muted group-hover:text-fg h-4 w-4 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                   )}
                 </div>
 
-                <h3 className="text-fg mt-6 text-lg font-semibold tracking-[-0.02em] sm:text-xl">
+                <h3 className="text-fg mt-5 text-base font-semibold tracking-[-0.02em] sm:mt-6 sm:text-lg md:text-xl">
                   {feature.title}
                 </h3>
                 <p className="text-fg-tertiary mt-2 text-sm leading-relaxed">
                   {feature.description}
                 </p>
 
-                {/* Hero cell — mini WhatsApp chat preview */}
-                {isHero && <WhatsAppPreview />}
-
-                {/* AI Lead Scoring cell — score viz */}
-                {feature.id === "ai-lead-scoring" && <LeadScorePreview />}
-
-                {/* Document Hub cell — file chips */}
-                {feature.id === "document-management" && <DocsPreview />}
-
-                {/* Automation cell — flow */}
-                {feature.id === "automation" && <AutomationPreview />}
-
-                {/* Analytics cell — bar chart */}
-                {feature.id === "analytics" && <AnalyticsPreview />}
-
-                {/* Smart Sharing cell — channel icons */}
-                {feature.id === "sharing" && <SharingPreview />}
+                {/* Per-feature mini visuals (desktop only) */}
+                <div className="hidden md:block">
+                  {isHero && <WhatsAppPreview />}
+                  {feature.id === "listings" && <ListingsPreview />}
+                  {feature.id === "documents" && <DocsPreview />}
+                  {feature.id === "follow-ups" && <FollowUpsPreview />}
+                  {feature.id === "pipeline" && <PipelinePreview />}
+                  {feature.id === "sharing" && <SharingPreview />}
+                </div>
               </div>
             </motion.article>
           );
         })}
+      </motion.div>
+
+      {/* CTA below the grid */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="mt-12 flex flex-col items-center gap-4 text-center sm:mt-14"
+      >
+        <Button variant="default" size="lg" asChild className="group">
+          <a href="/features">
+            See every feature in detail
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+          </a>
+        </Button>
       </motion.div>
     </SectionWrapper>
   );
@@ -183,25 +195,21 @@ function WhatsAppPreview() {
   );
 }
 
-function LeadScorePreview() {
+function ListingsPreview() {
+  const listings = [
+    { name: "2BHK · Wakad", price: "₹ 65 L" },
+    { name: "3BHK · Baner", price: "₹ 1.1 Cr" },
+    { name: "2BHK · Hinjewadi", price: "₹ 58 L" },
+  ];
   return (
-    <div className="mt-4 space-y-2">
-      {[
-        { name: "A. Mehta", score: 92 },
-        { name: "P. Singh", score: 78 },
-        { name: "R. Iyer", score: 64 },
-      ].map((row) => (
-        <div key={row.name} className="flex items-center gap-2">
-          <span className="text-fg-tertiary w-16 text-[10px]">{row.name}</span>
-          <div className="bar-track h-1 flex-1">
-            <div
-              className="bar-fill"
-              style={{ width: `${row.score}%`, transitionDuration: "1.4s" }}
-            />
-          </div>
-          <span className="text-fg w-7 text-right text-[10px] tabular-nums">
-            {row.score}
-          </span>
+    <div className="mt-4 space-y-1.5">
+      {listings.map((l) => (
+        <div
+          key={l.name}
+          className="border-border bg-surface-secondary flex items-center justify-between rounded-md border px-2.5 py-1.5 text-[11px]"
+        >
+          <span className="text-fg-secondary">{l.name}</span>
+          <span className="text-fg font-medium tabular-nums">{l.price}</span>
         </div>
       ))}
     </div>
@@ -224,23 +232,22 @@ function DocsPreview() {
   );
 }
 
-function AutomationPreview() {
+function FollowUpsPreview() {
   return (
-    <div className="mt-4 flex items-center gap-1.5 text-[10px]">
-      <span className="bg-surface-tertiary text-fg-secondary rounded-md px-2 py-1">
-        Lead
-      </span>
-      <span className="text-fg-muted">→</span>
-      <span className="bg-surface-tertiary text-fg-secondary rounded-md px-2 py-1">
-        Match
-      </span>
-      <span className="text-fg-muted">→</span>
-      <span className="bg-fg text-bg rounded-md px-2 py-1">Send</span>
+    <div className="mt-4 space-y-1.5 text-[11px]">
+      <div className="border-border bg-surface-secondary flex items-center justify-between rounded-md border px-2.5 py-1.5">
+        <span className="text-fg-secondary">Call R. Mehta</span>
+        <span className="text-warning font-medium">Today</span>
+      </div>
+      <div className="border-border bg-surface-secondary flex items-center justify-between rounded-md border px-2.5 py-1.5">
+        <span className="text-fg-secondary">Send P. Sharma docs</span>
+        <span className="text-fg-muted">Tomorrow</span>
+      </div>
     </div>
   );
 }
 
-function AnalyticsPreview() {
+function PipelinePreview() {
   return (
     <div className="mt-4 flex h-16 items-end gap-1">
       {[40, 70, 55, 90, 65, 80, 95].map((h, i) => (

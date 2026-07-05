@@ -13,14 +13,14 @@ export function Footer() {
     >
       <div className="mesh-section-soft" aria-hidden="true" />
 
-      <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
         {/* Live status pill */}
-        <div className="mb-12 flex justify-center lg:justify-start">
+        <div className="mb-10 flex justify-center sm:mb-12 lg:justify-start">
           <StatusIndicator />
         </div>
 
-        {/* Main Footer Grid */}
-        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
+        {/* Main Footer Grid — mobile-first: 1 col → 2 col at sm → 12 col at lg */}
+        <div className="grid gap-10 sm:grid-cols-2 sm:gap-8 lg:grid-cols-12 lg:gap-8">
           {/* Brand Column */}
           <div className="lg:col-span-5">
             <Link
@@ -37,13 +37,13 @@ export function Footer() {
               {siteConfig.description}
             </p>
             <p className="text-fg-muted mt-4 text-[11px] font-medium tracking-[0.18em] uppercase">
-              Made in India · For India · Since {siteConfig.since}
+              Built in India · For Indian brokers · Since {siteConfig.since}
             </p>
           </div>
 
           {/* Link Columns */}
           <div className="lg:col-span-2">
-            <h3 className="text-fg mb-5 text-xs font-semibold tracking-widest uppercase">
+            <h3 className="text-fg mb-4 text-xs font-semibold tracking-widest uppercase sm:mb-5">
               Product
             </h3>
             <ul className="space-y-3">
@@ -62,7 +62,7 @@ export function Footer() {
           </div>
 
           <div className="lg:col-span-2">
-            <h3 className="text-fg mb-5 text-xs font-semibold tracking-widest uppercase">
+            <h3 className="text-fg mb-4 text-xs font-semibold tracking-widest uppercase sm:mb-5">
               Company
             </h3>
             <ul className="space-y-3">
@@ -81,7 +81,7 @@ export function Footer() {
           </div>
 
           <div className="lg:col-span-3">
-            <h3 className="text-fg mb-5 text-xs font-semibold tracking-widest uppercase">
+            <h3 className="text-fg mb-4 text-xs font-semibold tracking-widest uppercase sm:mb-5">
               Compare
             </h3>
             <ul className="space-y-3">
@@ -117,11 +117,11 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-border mt-16 flex flex-col items-start justify-between gap-4 border-t pt-8 sm:flex-row sm:items-center">
+        <div className="border-border mt-12 flex flex-col items-start justify-between gap-4 border-t pt-7 sm:mt-16 sm:flex-row sm:items-center sm:pt-8">
           <p className="text-fg-muted text-xs">
             &copy; {currentYear} {siteConfig.name}. All rights reserved.
           </p>
-          <div className="flex gap-6">
+          <div className="flex gap-5 sm:gap-6">
             <Link
               href="/privacy"
               className="text-fg-muted hover:text-fg text-xs underline-offset-4 transition-colors hover:underline"

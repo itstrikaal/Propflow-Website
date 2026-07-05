@@ -2,7 +2,7 @@
 
 import { Star, Quote } from "lucide-react";
 import { SectionWrapper } from "@/components/shared/section-wrapper";
-import { testimonials } from "@/lib/constants";
+import { testimonials, stats } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 function TestimonialCard({
@@ -27,13 +27,13 @@ function TestimonialCard({
   return (
     <article
       className={cn(
-        "border-border bg-surface group flex w-[380px] shrink-0 flex-col rounded-2xl border p-7 shadow-xs",
+        "border-border bg-surface group flex w-[300px] shrink-0 flex-col rounded-2xl border p-5 shadow-xs sm:w-[360px] sm:p-7",
         "transition-all duration-500 hover:-translate-y-0.5 hover:shadow-md"
       )}
     >
-      <Quote className="text-fg-muted/30 mb-4 h-5 w-5" />
+      <Quote className="text-fg-muted/30 mb-3 h-4 w-4 sm:mb-4 sm:h-5 sm:w-5" />
 
-      <div className="mb-4 flex gap-0.5">
+      <div className="mb-3 flex gap-0.5 sm:mb-4">
         {Array.from({ length: rating }).map((_, i) => (
           <Star key={i} className="fill-warning text-warning h-3.5 w-3.5" />
         ))}
@@ -43,13 +43,13 @@ function TestimonialCard({
         &ldquo;{content}&rdquo;
       </p>
 
-      <div className="mt-6 flex items-center gap-3 border-t border-[color:var(--border-secondary)] pt-5">
-        <div className="bg-fg text-bg flex h-10 w-10 items-center justify-center rounded-full font-display text-sm font-semibold tracking-[-0.02em]">
+      <div className="mt-5 flex items-center gap-3 border-t border-[color:var(--border-secondary)] pt-4 sm:mt-6 sm:pt-5">
+        <div className="bg-fg text-bg flex h-9 w-9 items-center justify-center rounded-full font-display text-xs font-semibold tracking-[-0.02em] sm:h-10 sm:w-10 sm:text-sm">
           {initials}
         </div>
         <div className="min-w-0 flex-1">
           <p className="text-fg truncate text-sm font-semibold">{name}</p>
-          <p className="text-fg-muted truncate text-xs">
+          <p className="text-fg-muted truncate text-[11px] sm:text-xs">
             {role} · {company}
           </p>
         </div>
@@ -77,23 +77,23 @@ export function TestimonialsSection() {
           <span className="text-fg-tertiary">the switch.</span>
         </>
       }
-      description="Real stories from brokerages that transformed their day-to-day with PropFlow."
+      description="Real stories from brokerages that brought their day-to-day into one calm workspace. (Names shared with permission.)"
       mesh="soft"
       containerClass="max-w-none"
     >
-      <div className="space-y-6">
+      <div className="space-y-5 sm:space-y-6">
         {/* Row A — scrolls right */}
         <div
           className="marquee-container overflow-hidden"
           style={{
             maskImage:
-              "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
+              "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
             WebkitMaskImage:
-              "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
+              "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
           }}
         >
           <div
-            className="marquee-track animate-marquee-right flex w-fit gap-5"
+            className="marquee-track animate-marquee-right flex w-fit gap-4 sm:gap-5"
             style={{ ["--animate-duration" as string]: "60s" }}
           >
             {rowA.map((t, i) => (
@@ -114,13 +114,13 @@ export function TestimonialsSection() {
           className="marquee-container overflow-hidden"
           style={{
             maskImage:
-              "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
+              "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
             WebkitMaskImage:
-              "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
+              "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
           }}
         >
           <div
-            className="marquee-track animate-marquee-left flex w-fit gap-5"
+            className="marquee-track animate-marquee-left flex w-fit gap-4 sm:gap-5"
             style={{ ["--animate-duration" as string]: "55s" }}
           >
             {rowB.map((t, i) => (
@@ -137,43 +137,24 @@ export function TestimonialsSection() {
         </div>
       </div>
 
-      {/* Aggregate proof row */}
-      <div className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-[color:var(--border)] bg-[color:var(--border)] sm:grid-cols-4">
-        <div className="bg-surface flex flex-col items-center px-6 py-7 text-center">
-          <span className="text-fg font-display text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">
-            1.8k+
-          </span>
-          <span className="text-fg-tertiary mt-2 text-xs tracking-wide sm:text-sm">
-            Active brokers
-          </span>
-        </div>
-        <div className="bg-surface flex flex-col items-center px-6 py-7 text-center">
-          <span className="text-fg font-display text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">
-            4.9
-            <span className="text-fg-tertiary ml-0.5 text-2xl font-normal">
-              /5
+      {/* Aggregate proof row — 2 col on mobile, 4 on sm */}
+      <div className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-[color:var(--border)] bg-[color:var(--border)] sm:mt-16 sm:grid-cols-4">
+        {stats.map((stat) => (
+          <div
+            key={stat.label}
+            className="bg-surface flex flex-col items-center px-3 py-6 text-center sm:px-6 sm:py-7"
+          >
+            <span className="text-fg font-display text-2xl font-semibold tracking-[-0.03em] tabular-nums sm:text-4xl">
+              {stat.value.toLocaleString("en-IN")}
+              <span className="ml-0.5 text-fg-tertiary text-lg font-normal sm:text-2xl">
+                {stat.suffix}
+              </span>
             </span>
-          </span>
-          <span className="text-fg-tertiary mt-2 text-xs tracking-wide sm:text-sm">
-            Average rating
-          </span>
-        </div>
-        <div className="bg-surface flex flex-col items-center px-6 py-7 text-center">
-          <span className="text-fg font-display text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">
-            22
-          </span>
-          <span className="text-fg-tertiary mt-2 text-xs tracking-wide sm:text-sm">
-            Indian cities
-          </span>
-        </div>
-        <div className="bg-surface flex flex-col items-center px-6 py-7 text-center">
-          <span className="text-fg font-display text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">
-            3×
-          </span>
-          <span className="text-fg-tertiary mt-2 text-xs tracking-wide sm:text-sm">
-            More deals closed
-          </span>
-        </div>
+            <span className="text-fg-tertiary mt-2 text-[11px] tracking-wide sm:text-sm">
+              {stat.label}
+            </span>
+          </div>
+        ))}
       </div>
     </SectionWrapper>
   );

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { SectionWrapper } from "@/components/shared/section-wrapper";
 import { Button } from "@/components/ui/button";
@@ -19,11 +18,17 @@ export function PricingSection() {
       variant="light"
       label="Pricing"
       serifTitle
-      title="Simple, honest pricing."
-      description="Start with a 14-day free trial. No credit card. Cancel anytime."
+      title={
+        <>
+          Honest pricing.
+          <br />
+          <span className="text-fg-tertiary">No surprises later.</span>
+        </>
+      }
+      description="One price, all features in your tier. No usage limits that bite. No upsells in your inbox. Start with a 14-day free trial."
     >
       {/* Toggle */}
-      <div className="mb-12 flex items-center justify-center gap-4">
+      <div className="mb-10 flex items-center justify-center gap-3 sm:mb-12 sm:gap-4">
         <span
           className={cn(
             "text-sm font-medium transition-colors duration-200",
@@ -47,9 +52,7 @@ export function PricingSection() {
           <span
             className={cn(
               "inline-block h-5 w-5 transform rounded-full shadow-sm transition-transform duration-300",
-              isYearly
-                ? "translate-x-6 bg-bg"
-                : "translate-x-0.5 bg-bg"
+              isYearly ? "translate-x-6 bg-bg" : "translate-x-0.5 bg-bg"
             )}
           />
         </button>
@@ -60,12 +63,14 @@ export function PricingSection() {
           )}
         >
           Annual
-          <Badge variant="success" className="ml-0.5">Save 17%</Badge>
+          <Badge variant="success" className="ml-0.5">
+            Save 17%
+          </Badge>
         </span>
       </div>
 
-      {/* Cards */}
-      <div className="grid gap-6 lg:grid-cols-3 lg:gap-5">
+      {/* Cards — mobile-first: 1 col → 3 col at lg */}
+      <div className="grid gap-5 sm:gap-6 lg:grid-cols-3">
         {pricingTiers.map((tier, index) => (
           <motion.div
             key={tier.id}
@@ -78,7 +83,7 @@ export function PricingSection() {
               ease: [0.16, 1, 0.3, 1],
             }}
             className={cn(
-              "relative flex flex-col rounded-3xl border p-8 transition-all duration-500",
+              "relative flex flex-col rounded-2xl border p-6 transition-all duration-500 sm:rounded-3xl sm:p-8",
               tier.highlighted
                 ? "border-fg/15 bg-surface shadow-xl lg:-translate-y-2"
                 : "border-border bg-surface hover:border-fg/15 hover:shadow-md"
@@ -86,8 +91,8 @@ export function PricingSection() {
           >
             {/* Highlighted beam border */}
             {tier.highlighted && (
-              <div className="absolute inset-0 overflow-hidden rounded-3xl">
-                <div className="beam-border absolute inset-0 rounded-3xl" />
+              <div className="absolute inset-0 overflow-hidden rounded-2xl sm:rounded-3xl">
+                <div className="beam-border absolute inset-0 rounded-2xl sm:rounded-3xl" />
               </div>
             )}
 
@@ -108,10 +113,10 @@ export function PricingSection() {
                 {tier.description}
               </p>
 
-              <div className="mt-7 flex items-baseline gap-1.5">
+              <div className="mt-6 flex items-baseline gap-1.5 sm:mt-7">
                 <span className="text-fg-secondary text-base font-medium">₹</span>
                 <span
-                  className="text-fg font-display text-[clamp(2.75rem,4vw,3.5rem)] font-semibold tracking-[-0.035em] tabular-nums"
+                  className="text-fg font-display text-[clamp(2.25rem,7vw,3.25rem)] font-semibold tracking-[-0.035em] tabular-nums"
                   style={{ fontVariantNumeric: "tabular-nums" }}
                 >
                   {(
@@ -131,7 +136,7 @@ export function PricingSection() {
               )}
             </div>
 
-            <ul className="mt-8 space-y-3">
+            <ul className="mt-7 space-y-3 sm:mt-8">
               {tier.features.map((feature) => (
                 <li
                   key={feature}
@@ -150,20 +155,9 @@ export function PricingSection() {
               ))}
             </ul>
 
-            <div className="mt-auto pt-8">
+            <div className="mt-7 pt-2 sm:mt-auto sm:pt-8">
               {tier.id === "enterprise" ? (
-                <Link href="/contact">
-                  <Button
-                    variant={tier.highlighted ? "default" : "secondary"}
-                    className="group cta-group w-full"
-                    size="lg"
-                  >
-                    Contact Sales
-                    <ArrowRight className="cta-arrow h-4 w-4" />
-                  </Button>
-                </Link>
-              ) : (
-                <Link href="https://app.propflow.in/sign-up">
+                <a href="/contact">
                   <Button
                     variant={tier.highlighted ? "default" : "secondary"}
                     className="group cta-group w-full"
@@ -172,7 +166,18 @@ export function PricingSection() {
                     {tier.cta}
                     <ArrowRight className="cta-arrow h-4 w-4" />
                   </Button>
-                </Link>
+                </a>
+              ) : (
+                <a href="https://app.propflow.in/sign-up">
+                  <Button
+                    variant={tier.highlighted ? "default" : "secondary"}
+                    className="group cta-group w-full"
+                    size="lg"
+                  >
+                    {tier.cta}
+                    <ArrowRight className="cta-arrow h-4 w-4" />
+                  </Button>
+                </a>
               )}
             </div>
           </motion.div>
@@ -180,7 +185,7 @@ export function PricingSection() {
       </div>
 
       {/* Reassurance row */}
-      <div className="text-fg-muted mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs">
+      <div className="text-fg-muted mt-10 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[11px] sm:mt-12 sm:text-xs">
         <span className="inline-flex items-center gap-1.5">
           <Check className="h-3 w-3" />
           No credit card required

@@ -1,24 +1,16 @@
 "use client";
 
+import { trustedBrokerages } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
-const logos = [
-  { name: "SVC Realtors", city: "Mumbai" },
-  { name: "Arihant Realty", city: "Delhi NCR" },
-  { name: "Siddha Group", city: "Bangalore" },
-  { name: "Vakratunda Properties", city: "Pune" },
-  { name: "Sunteck Estates", city: "Mumbai" },
-  { name: "Nirman Ventures", city: "Hyderabad" },
-  { name: "Kumar Realtors", city: "Chennai" },
-  { name: "ASF Group", city: "Lucknow" },
-  { name: "Vishnu Priya Estates", city: "Chennai" },
-  { name: "Maple Homes", city: "Gurgaon" },
-];
-
-function LogoItem({ logo }: { logo: (typeof logos)[number] }) {
+function LogoItem({
+  logo,
+}: {
+  logo: (typeof trustedBrokerages)[number];
+}) {
   return (
-    <div className="group mx-8 flex shrink-0 items-center gap-3">
-      <span className="border-border bg-surface-secondary text-fg-secondary group-hover:text-fg group-hover:border-fg/20 flex h-10 w-10 items-center justify-center rounded-xl border font-display text-base font-semibold transition-all duration-300">
+    <div className="group mx-6 flex shrink-0 items-center gap-3 sm:mx-8">
+      <span className="border-border bg-surface-secondary text-fg-secondary group-hover:text-fg group-hover:border-fg/20 flex h-9 w-9 items-center justify-center rounded-xl border font-display text-sm font-semibold transition-all duration-300 sm:h-10 sm:w-10 sm:text-base">
         {logo.name.charAt(0)}
       </span>
       <span className="flex flex-col leading-tight">
@@ -33,20 +25,24 @@ function LogoItem({ logo }: { logo: (typeof logos)[number] }) {
   );
 }
 
+/**
+ * Trusted-by brokerage marquee. Two rows scrolling in opposite directions.
+ * On mobile, items scale down slightly and the gap tightens.
+ */
 export function TrustedBySection() {
   return (
     <section
-      className="border-border/60 relative overflow-hidden border-y py-16 sm:py-20"
+      className="border-border/60 relative overflow-hidden border-y py-12 sm:py-20"
       aria-label="Trusted by brokerages"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <p className="text-fg-muted mx-auto mb-10 max-w-md text-center text-[11px] font-medium tracking-[0.2em] uppercase">
-          Trusted by brokerages across 22 Indian cities
+        <p className="text-fg-muted mx-auto mb-8 max-w-md text-center text-[11px] font-medium tracking-[0.2em] uppercase sm:mb-10">
+          Brokerages in 22 Indian cities run their day on PropFlow
         </p>
 
         {/* Row 1 — scrolls right */}
         <div
-          className="marquee-container mb-5 overflow-hidden"
+          className="marquee-container mb-4 overflow-hidden sm:mb-5"
           style={{
             maskImage:
               "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
@@ -55,18 +51,16 @@ export function TrustedBySection() {
           }}
         >
           <div
-            className={cn(
-              "marquee-track animate-marquee-right flex w-fit"
-            )}
+            className={cn("marquee-track animate-marquee-right flex w-fit")}
             style={{ ["--animate-duration" as string]: "55s" }}
           >
-            {[...logos, ...logos].map((logo, i) => (
+            {[...trustedBrokerages, ...trustedBrokerages].map((logo, i) => (
               <LogoItem key={`r-${i}`} logo={logo} />
             ))}
           </div>
         </div>
 
-        {/* Row 2 — scrolls left (offset logos for variety) */}
+        {/* Row 2 — scrolls left (offset for visual variety) */}
         <div
           className="marquee-container overflow-hidden"
           style={{
@@ -77,12 +71,10 @@ export function TrustedBySection() {
           }}
         >
           <div
-            className={cn(
-              "marquee-track animate-marquee-left flex w-fit"
-            )}
+            className={cn("marquee-track animate-marquee-left flex w-fit")}
             style={{ ["--animate-duration" as string]: "50s" }}
           >
-            {[...logos.slice().reverse(), ...logos.slice().reverse()].map(
+            {[...trustedBrokerages.slice().reverse(), ...trustedBrokerages.slice().reverse()].map(
               (logo, i) => (
                 <LogoItem key={`l-${i}`} logo={logo} />
               )
